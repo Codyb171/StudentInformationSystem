@@ -11,5 +11,4 @@ public class Course
     private ArrayList<Student> enrolledStudents = new ArrayList<>();
     private Instructor courseInstructor;
 
-    //Test
 }

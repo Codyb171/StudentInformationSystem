@@ -12,10 +12,6 @@ public class SISApplication
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;
-          String courseName;
-          String building;
-          String roomNumber;
-          String roomCap;
           // Add info holders for student
           // Add Info holders for instructor
           while (inUse == 0)

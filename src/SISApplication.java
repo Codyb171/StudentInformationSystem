@@ -12,8 +12,6 @@ public class SISApplication
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;
-          //Add info holders for student
-          // Add Info holders for instructor
           while (inUse == 0)
           {
               printMenu();

@@ -7,33 +7,30 @@ public class Student
     private double GPA;
     private String studentEmail;
     private int studentID;
-    private int nextStudentID;
+    private static int nextStudentID = 1000;
     
     public Student(String name, int year, String major, double GPA, String email)
     {
         this.firstName = name;
-        this.GPA = GPA;
-        this.studentEmail = email;
+        setGPA(GPA);
+        setStudentEmail(email);
+        setStudentID(nextStudentID);
+        nextStudentID++;
     }
     
     public void setGPA(double GPA)
     {
         this.GPA = GPA;
     }
-    
-    public double getGPA()
-    {
-        return this.GPA;
-    }
-    
+
     public String getName()
     {
         return this.firstName;
     }
     
-    public int getStudentID()
+    public void setStudentID(int studentID)
     {
-        
+        this.studentID= studentID;
     }
     
     public void setStudentEmail(String email)

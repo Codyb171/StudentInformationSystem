@@ -41,7 +41,10 @@ public class Instructor
     {
         instructorID = ID;
     }
-    public void getTitle()
+    public String getTitle()
+    {
+        return this.prefix;
+    }
     
     //toString method prints our
         //Name

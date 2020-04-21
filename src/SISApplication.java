@@ -25,10 +25,7 @@ public class SISApplication
               choice = input.nextInt();
               if (choice == 1)
               {
-                  System.out.println("Creating a Course...");
-                  System.out.print("Enter The Course Name: ");
-                  courseName = input.nextLine();
-                  System.out.println();
+
               }
               if(choice == 2)
               {
@@ -80,11 +77,17 @@ public class SISApplication
         String courseName;
         String building;
         String roomNumber;
-        String roomCap;
+        int roomCap;
         System.out.println("Creating a Course...");
         System.out.print("Enter The Course Name: ");
         courseName = input.nextLine();
-        System.out.println();
+        System.out.print("\nEnter the Building Name: ");
+        building = input.nextLine();
+        System.out.print("\nEnter the Room Number: ");
+        roomNumber = input.nextLine();
+        System.out.print("\nEnter the Room Capacity : ");
+        roomCap = input.nextInt();
+        courseArray.add(new Course());
     }
 
 }

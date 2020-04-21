@@ -133,10 +133,13 @@ public class SISApplication
         int classID = input.nextInt();
         System.out.println("Pick a student: ");
         System.out.println("-------------------");
-        for(int i = 0; i < studentArray.size(); i++)
+        for (Student student : studentArray)
         {
-            System.out.println(studentArray.get(i).toString());
+            System.out.println(student.toString());
         }
+        System.out.print("Enter Student ID: ");
+        int studentID = input.nextInt();
+
     }
     public static void removeStudent()
     {
@@ -155,9 +158,9 @@ public class SISApplication
     public static void printClasses()
     {
         System.out.println("Please Choose a Class:");
-        for(int i = 0; i < courseArray.size(); i++)
+        for (Course course : courseArray)
         {
-            System.out.println(courseArray.get(i).toString());
+            System.out.println(course.toString());
         }
         System.out.println("-------------------");
         System.out.print("Choose Class: ");

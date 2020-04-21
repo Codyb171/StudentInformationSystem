@@ -16,7 +16,7 @@ public class SISApplication
           String building;
           String roomNumber;
           String roomCap;
-          //Add info holders for student
+          // Add info holders for student
           // Add Info holders for instructor
           while (inUse == 0)
           {
@@ -24,7 +24,7 @@ public class SISApplication
               choice = input.nextInt();
               if (choice == 1)
               {
-
+                  courseCreate();
               }
               if(choice == 2)
               {

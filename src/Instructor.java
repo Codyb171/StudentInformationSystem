@@ -41,7 +41,7 @@ public class Instructor
     {
         instructorID = ID;
     }
-    //public void getTitle()
+    public void getTitle()
     
     //toString method prints our
         //Name

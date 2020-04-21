@@ -1,3 +1,5 @@
+import static java.lang.String.*;
+
 public class Student
 {
     private String firstName;
@@ -110,6 +112,12 @@ public class Student
     {
         studentMajor = major;
     }
-
+    public String toString()
+    {
+        String printOut = "";
+        printOut = String.format("Student ID:%-6d Student Name:%-10s, %-15s Major: %-15s Year: %-15s",
+                this.studentID, this.lastName, this.firstName,this.studentMajor,this.studentYear);
+        return printOut;
+    }
 }
 

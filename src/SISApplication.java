@@ -90,7 +90,17 @@ public class SISApplication
     }
     public static void createStudent()
     {
-        //add student info
+        String name;
+        int year;
+        String major;
+        double GPA;
+        String email;
+        System.out.println("Enter Student Info: ");
+        System.out.print("Name (FirstName LastName): ");
+        name = input.nextLine();
+        System.out.print("\nEnter Student Major: ");
+        major = input.nextLine();
+        System.out.print("\n");
     }
     public static void createInstructor()
     {

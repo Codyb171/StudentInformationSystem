@@ -7,7 +7,6 @@ public class SISApplication
     public static ArrayList<Student> studentArray = new ArrayList<>();
     public static ArrayList<Course> courseArray = new ArrayList<>();
     public static ArrayList<Instructor> instructorArray = new ArrayList<>();
-    public static int studentID = 1000;
     public static int instructorID =100000;
     public static Scanner input = new Scanner(System.in);
     public static void main(String[] args)
@@ -98,17 +97,39 @@ public class SISApplication
         System.out.println("Enter Student Info: ");
         System.out.print("Name (FirstName LastName): ");
         name = input.nextLine();
-        System.out.print("\nEnter Student Major: ");
+        System.out.print("\nMajor: ");
         major = input.nextLine();
-        System.out.print("\n");
+        System.out.print("\nYear: ");
+        year = input.nextInt();
+        System.out.print("\nGPA: ");
+        GPA = input.nextDouble();
+        System.out.print("\nEmail: ");
+        email = input.nextLine();
+        studentArray.add(new Student(name,year,major,GPA,email));
     }
     public static void createInstructor()
     {
-        //add instructor info
+        String name;
+        String prefix;
+        String office;
+        String depart;
+        String email;
+        System.out.println("Enter Instructor Info: ");
+        System.out.print("Name: ");
+        name = input.nextLine();
+        System.out.print("\nPrefix: ");
+        prefix = input.nextLine();
+        System.out.print("\nOffice: ");
+        office = input.nextLine();
+        System.out.print("\n Department: ");
+        depart = input.nextLine();
+        System.out.print("\nEmail: ");
+        email = input.nextLine();
+        instructorArray.add(new Instructor(name,prefix,office,depart,email));
     }
     public static void addStudent()
     {
-        //add student to course
+
     }
     public static void removeStudent()
     {

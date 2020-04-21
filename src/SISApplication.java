@@ -41,6 +41,8 @@ public class SISApplication
               if(choice == 7)
               {
                   inUse = 1;
+                  System.out.println("Exiting. . . \n" +
+                          "Goodbye" );
               }
           }
     }

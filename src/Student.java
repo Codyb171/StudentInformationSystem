@@ -12,6 +12,7 @@ public class Student
     public Student(String name, int year, String major, double GPA, String email)
     {
         getName();
+        setStudentYear(year);
         setGPA(GPA);
         setStudentEmail(email);
         setStudentID(nextStudentID);
@@ -49,10 +50,32 @@ public class Student
         }
     }
     
+    public String getStudentYear()
+    {
+        return this.studentYear;
+    }
+    
     public void setStudentYear(int year)
     {
-        this.studentYear = studentYear;
+        if(year == 1)
+        {
+            this.studentYear = "Freshman";
+        }
+        else if(year == 2)
+        {
+            this.studentYear = "Sophomore";
+        }
+        else if(year == 3)
+        {
+            this.studentYear = "Junior";
+        }
+        else if(year == 4)
+        {
+            this.studentYear = "Senior";
+        }
+        getStudentYear();
     }
+    
     
 }
 

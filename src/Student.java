@@ -81,6 +81,22 @@ public class Student
         }
         getStudentYear();
     }
+
+    public String getStudentYear()
+    {
+        return this.StudentYear;
+    }
+
+    public String getStudentMajor()
+    {
+        return this.studentMajor;
+    }
+
+    public void setStudentMajor(String major)
+    {
+        this.major = major;
+        return major;
+    }
     
     public String getStudentMajor()
     {

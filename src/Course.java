@@ -48,4 +48,28 @@ public class Course
         this.courseInstructor = courseInstructor;
     }
 
+    public String toString()
+    {
+        String returnState = "";
+        for(int i = 0; i < this.length(); i++)
+        {
+            if(this.charAt(i) == " ")
+            {
+                returnState += " ";
+            }
+            else if(this.charAt(i) != " ")
+            {
+                returnState += this.charAt(i)
+            }
+            else
+            {
+                continue;
+            }
+            
+        }
+        return returnState;
+    }
+
+
+
 }

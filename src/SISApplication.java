@@ -20,7 +20,7 @@ public class SISApplication
               choice = input.nextInt();
               if (choice == 1)
               {
-
+                  courseCreate();
               }
               if(choice == 2)
               {
@@ -82,7 +82,7 @@ public class SISApplication
         roomNumber = input.nextLine();
         System.out.print("\nEnter the Room Capacity : ");
         roomCap = input.nextInt();
-        courseArray.add(new Course());
+        courseArray.add(new Course(courseName,building,roomNumber,roomCap));
     }
 
 }

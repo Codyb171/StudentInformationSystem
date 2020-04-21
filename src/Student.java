@@ -11,7 +11,7 @@ public class Student
     
     public Student(String name, int year, String major, double GPA, String email)
     {
-        this.firstName = name;
+        getName();
         setGPA(GPA);
         setStudentEmail(email);
         setStudentID(nextStudentID);
@@ -25,7 +25,8 @@ public class Student
 
     public String getName()
     {
-        return this.firstName;
+        String name = this.firstName + this.lastName;
+        return name;
     }
     
     public void setStudentID(int studentID)

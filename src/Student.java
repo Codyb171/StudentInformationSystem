@@ -1,4 +1,57 @@
 public class Student
 {
-
+    private String firstName;
+    private String lastName;
+    private String studentYear;
+    private String studentMajor;
+    private double GPA;
+    private String studentEmail;
+    private int studentID;
+    private int nextStudentID;
+    
+    public Student(String name, int year, String major, double GPA, String email)
+    {
+        this.firstName = name;
+        this.GPA = GPA;
+        this.studentEmail = email;
+    }
+    
+    public void setGPA(double GPA)
+    {
+        this.GPA = GPA;
+    }
+    
+    public double getGPA()
+    {
+        return this.GPA;
+    }
+    
+    public String getName()
+    {
+        return this.firstName;
+    }
+    
+    public int getStudentID()
+    {
+        
+    }
+    
+    public void setStudentEmail(String email)
+    {
+        for(int i=0; i<email.length(); i++)
+        {
+            if (email.charAt(i) == '@')
+            {
+                System.out.println("Error: No @ has been included with the email address!");
+                break;
+            }
+            
+            this.studentEmail = email;
+            //fix this possible
+        }
+    }
+    
+    
+    
 }
+

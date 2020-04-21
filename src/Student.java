@@ -71,7 +71,7 @@ public class Student
                 break;
             }
             
-            this.studentEmail = email;
+            studentEmail = email;
             //fix this possible
         }
     }

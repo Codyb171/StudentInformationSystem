@@ -13,6 +13,7 @@ public class Student
     {
         getName();
         setStudentYear(year);
+        this.studentMajor = major;
         setGPA(GPA);
         setStudentEmail(email);
         setStudentID(nextStudentID);
@@ -22,6 +23,11 @@ public class Student
     public void setGPA(double GPA)
     {
         this.GPA = GPA;
+    }
+    
+    public double getGPA()
+    {
+        return this.GPA;
     }
 
     public String getName()
@@ -76,6 +82,15 @@ public class Student
         getStudentYear();
     }
     
+    public String getStudentMajor()
+    {
+        return this.studentMajor;
+    }
+    
+    public void setStudentMajor(String major)
+    {
+        this.studentMajor = major;
+    }
     
 }
 

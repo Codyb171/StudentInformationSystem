@@ -7,7 +7,6 @@ public class SISApplication
     public static ArrayList<Course> courseArray = new ArrayList<>();
     public static ArrayList<Instructor> instructorArray = new ArrayList<>();
     public static int studentID = 1000;
-    public static int courseNbr = 0;
     public static int instructorID =100000;
     public static Scanner input = new Scanner(System.in);
     public static void main(String[] args)
@@ -72,7 +71,7 @@ public class SISApplication
                 "7: Exit System");
         System.out.print("Choice: ");
     }
-    public static void courseCreate(int courseID)
+    public static void courseCreate()
     {
         String courseName;
         String building;

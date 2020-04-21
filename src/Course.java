@@ -4,6 +4,7 @@ public class Course
     private String building;
     private String roomNbr;
     private int courseCapacity;
-    private int courseID;
+    private int courseID = 0;
+    private int nextCourseID = 1;
 
 }

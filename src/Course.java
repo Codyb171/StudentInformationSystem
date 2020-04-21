@@ -6,10 +6,19 @@ public class Course
     private String building;
     private String roomNbr;
     private int courseCapacity;
-    private int courseID = 0;
+    private int courseID;
     private ArrayList<Student> enrolledStudents = new ArrayList<>();
     private Instructor courseInstructor;
-    private int nextCourseID = 1;
+    private int nextCourseID = 0;
+
+    public Course(String courseName, String building, String roomNbr, int courseCapacity) {
+        setCourseName(courseName);
+        setBuilding(building);
+        setRoomNbr(roomNbr);
+        setCourseCapacity(courseCapacity);
+        setCourseID(nextCourseID);
+        nextCourseID++;
+    }
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
@@ -31,7 +40,7 @@ public class Course
         this.courseID = courseID;
     }
 
-    public void setEnrolledStudents(Student newStudent) {
+    public void addStudent(Student newStudent) {
         enrolledStudents.add(newStudent);
     }
 
@@ -39,7 +48,4 @@ public class Course
         this.courseInstructor = courseInstructor;
     }
 
-    public void setNextCourseID(int nextCourseID) {
-        this.nextCourseID = nextCourseID;
-    }
 }

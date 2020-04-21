@@ -6,12 +6,18 @@ public class SISApplication
     public static ArrayList<Student> studentArray = new ArrayList<>();
     public static ArrayList<Course> courseArray = new ArrayList<>();
     public static ArrayList<Instructor> instructorArray = new ArrayList<>();
-    public static int studentID = 100000;
-    public static int courseNbr = 1000;
-    public static int instructorID =1;
+    public static int studentID = 1000;
+    public static int courseNbr = 0;
+    public static int instructorID =100000;
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;
+          String courseName;
+          String building;
+          String roomNumber;
+          String roomCap;
+          //Add info holders for student
+          // Add Info holders for instructor
           Scanner input = new Scanner(System.in);
           while (inUse == 0)
           {
@@ -19,7 +25,10 @@ public class SISApplication
               choice = input.nextInt();
               if (choice == 1)
               {
-                  
+                  System.out.println("Creating a Course...");
+                  System.out.print("Enter The Course Name: ");
+                  courseName = input.nextLine();
+                  System.out.println();
               }
               if(choice == 2)
               {
@@ -56,7 +65,8 @@ public class SISApplication
         {
             System.out.print("-");
         }
-        System.out.println("1: Create a Course \n" +
+        System.out.println(
+                "1: Create a Course \n" +
                 "2: Create a Student \n" +
                 "3: Add a Student to a Course \n" +
                 "4: Remove a Student from a Course \n" +
@@ -65,5 +75,10 @@ public class SISApplication
                 "7: Exit System");
         System.out.print("Choice: ");
     }
+    public static void courseCreate(int courseID)
+    {
+
+    }
+
 }
 

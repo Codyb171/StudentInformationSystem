@@ -49,10 +49,10 @@ public class Instructor
         //Office
         //Email
     
-    public void toString(String name, String department, String office, String email){ 
-        
-        
-    
+    public String toString()
+    {
+        String formattedString = "";
+        return formattedString;
     }
 }
 

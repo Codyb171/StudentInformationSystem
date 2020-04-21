@@ -12,8 +12,6 @@ public class SISApplication
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;
-          // Add info holders for student
-          // Add Info holders for instructor
           while (inUse == 0)
           {
               printMenu();
@@ -24,25 +22,29 @@ public class SISApplication
               }
               if(choice == 2)
               {
-
+                  createStudent();
               }
               if(choice == 3)
               {
-
+                  createInstructor();
               }
               if(choice == 4)
               {
-
+                  addStudent();
               }
               if (choice == 5)
               {
-
+                  removeStudent();
               }
               if(choice == 6)
               {
-
+                  assignInstructor();
               }
               if(choice == 7)
+              {
+                  printRoster();
+              }
+              if(choice == 8)
               {
                   inUse = 1;
                   System.out.println("Exiting. . . \n" +
@@ -60,11 +62,12 @@ public class SISApplication
         System.out.println(
                 "1: Create a Course \n" +
                 "2: Create a Student \n" +
-                "3: Add a Student to a Course \n" +
-                "4: Remove a Student from a Course \n" +
-                "5: Assign an Instructor to a Course \n" +
-                "6: Print a Roster for a Course \n" +
-                "7: Exit System");
+                "3: Create Instructor \n" +
+                "4: Add a Student to a Course \n" +
+                "5: Remove a Student from a Course \n" +
+                "6: Assign an Instructor to a Course \n" +
+                "7: Print a Roster for a Course \n" +
+                "8: Exit System");
         System.out.print("Choice: ");
     }
     public static void courseCreate()
@@ -82,9 +85,31 @@ public class SISApplication
         roomNumber = input.nextLine();
         System.out.print("\nEnter the Room Capacity : ");
         roomCap = input.nextInt();
-        courseArray.add(new Course());
-        //cody was here
+        courseArray.add(new Course(courseName, building, roomNumber, roomCap));
     }
-
+    public static void createStudent()
+    {
+        //add student info
+    }
+    public static void createInstructor()
+    {
+        //add instructor info
+    }
+    public static void addStudent()
+    {
+        //add student to course
+    }
+    public static void removeStudent()
+    {
+        //remove student from course
+    }
+    public static void assignInstructor()
+    {
+        //add instructor assignment
+    }
+    public static void printRoster()
+    {
+        //add printout of roster
+    }
 }
 

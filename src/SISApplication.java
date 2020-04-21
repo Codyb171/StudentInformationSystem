@@ -6,6 +6,9 @@ public class SISApplication
     public static ArrayList<Student> studentArray = new ArrayList<>();
     public static ArrayList<Course> courseArray = new ArrayList<>();
     public static ArrayList<Instructor> instructorArray = new ArrayList<>();
+    public static int studentID = 100000;
+    public static int courseNbr = 1000;
+    public static int instructorID =1;
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;

@@ -12,10 +12,6 @@ public class SISApplication
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;
-          String courseName;
-          String building;
-          String roomNumber;
-          String roomCap;
           //Add info holders for student
           // Add Info holders for instructor
           while (inUse == 0)
@@ -87,7 +83,6 @@ public class SISApplication
         System.out.print("\nEnter the Room Capacity : ");
         roomCap = input.nextInt();
         courseArray.add(new Course());
-        //TANNER WUZ HERE (1)
     }
 
 }

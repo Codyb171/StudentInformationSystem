@@ -129,7 +129,14 @@ public class SISApplication
     }
     public static void addStudent()
     {
-
+        printClasses();
+        int classID = input.nextInt();
+        System.out.println("Pick a student: ");
+        System.out.println("-------------------");
+        for(int i = 0; i < studentArray.size(); i++)
+        {
+            System.out.println(studentArray.get(i).toString());
+        }
     }
     public static void removeStudent()
     {
@@ -144,6 +151,16 @@ public class SISApplication
     //Uncomment next 2 lines and assign the correct array reference location.    
         //return String;
         //String.format("%-8s %-14s %-12s %-12s %-12s %-12s", "Day: " + this.student");
+    }
+    public static void printClasses()
+    {
+        System.out.println("Please Choose a Class:");
+        for(int i = 0; i < courseArray.size(); i++)
+        {
+            System.out.println(courseArray.get(i).toString());
+        }
+        System.out.println("-------------------");
+        System.out.print("Choose Class: ");
     }
 }
 

@@ -48,7 +48,10 @@ public class Student
         }
     }
     
-    
+    public void setStudentYear(int year)
+    {
+
+    }
     
 }
 

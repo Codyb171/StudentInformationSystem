@@ -8,12 +8,13 @@ public class Instructor
     private int instructorID;
     private int nextInstructID;
 
-    public Instructor(String name, String prefix, String officeLocation, String department, String email, int instructorID, int nextIinstructID) {
+    public Instructor(String name, String prefix, String officeLocation, String department, String email) {
         setName(name);
         setPrefix(prefix);
         setDepartment(department);
         setEmail(email);
         setOfficeLocation(officeLocation);
+        setInstructorID(nextInstructID);
         nextInstructID++;
     }
 
@@ -36,7 +37,10 @@ public class Instructor
     public void setOfficeLocation(String officeLocation) {
         this.officeLocation = officeLocation;
     }
-
+    public void setInstructorID(int ID)
+    {
+        instructorID = ID;
+    }
     //public void getTitle()
     
     //toString method prints our

@@ -69,11 +69,12 @@ public class Student
         {
             if (email.charAt(i) == '@')
             {
-                System.out.println("Error: No @ has been included with the email address!");
+                studentEmail = email;
+            }
+            else
+            {
                 break;
             }
-            
-            studentEmail = email;
             //fix this possible
         }
     }

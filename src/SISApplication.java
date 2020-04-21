@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.*;
 
 public class SISApplication
 {
@@ -108,8 +109,10 @@ public class SISApplication
         //add instructor assignment
     }
     public static void printRoster()
-    {
-        //add printout of roster
+    {   
+    //Uncomment next 2 lines and assign the correct array reference location.    
+        //return String;
+        //String.format("%-8s %-14s %-12s %-12s %-12s %-12s", "Day: " + this.student");
     }
 }
 

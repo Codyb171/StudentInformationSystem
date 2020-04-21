@@ -47,6 +47,7 @@ public class Student
             }
             
             this.studentEmail = email;
+            //fix this possible
         }
     }
     

@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//SCOTT WAS HERE
 public class Course
 {
     private String courseName;

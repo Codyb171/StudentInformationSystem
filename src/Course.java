@@ -9,7 +9,7 @@ public class Course
     private int courseID;
     private ArrayList<Student> enrolledStudents = new ArrayList<>();
     private Instructor courseInstructor;
-    private int nextCourseID = 0;
+    private static int nextCourseID = 0;
 
     public Course(String courseName, String building, String roomNbr, int courseCapacity) {
         setCourseName(courseName);

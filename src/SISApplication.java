@@ -20,7 +20,7 @@ public class SISApplication
               choice = input.nextInt();
               if (choice == 1)
               {
-
+                  courseCreate();
               }
               if(choice == 2)
               {

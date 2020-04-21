@@ -15,7 +15,7 @@ public class Student
         setFirstName(name.substring(0,space));
         setLastName(name.substring(space));
         setStudentYear(year);
-        this.studentMajor = major;
+        setStudentMajor(major);
         setGPA(GPA);
         setStudentEmail(email);
         setStudentID(nextStudentID);

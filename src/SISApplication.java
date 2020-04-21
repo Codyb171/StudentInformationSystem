@@ -9,6 +9,7 @@ public class SISApplication
     public static int studentID = 1000;
     public static int courseNbr = 0;
     public static int instructorID =100000;
+    public static Scanner input = new Scanner(System.in);
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;
@@ -18,7 +19,6 @@ public class SISApplication
           String roomCap;
           //Add info holders for student
           // Add Info holders for instructor
-          Scanner input = new Scanner(System.in);
           while (inUse == 0)
           {
               printMenu();
@@ -77,7 +77,14 @@ public class SISApplication
     }
     public static void courseCreate(int courseID)
     {
-
+        String courseName;
+        String building;
+        String roomNumber;
+        String roomCap;
+        System.out.println("Creating a Course...");
+        System.out.print("Enter The Course Name: ");
+        courseName = input.nextLine();
+        System.out.println();
     }
 
 }

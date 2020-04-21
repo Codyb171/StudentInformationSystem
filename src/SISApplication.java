@@ -83,6 +83,7 @@ public class SISApplication
         System.out.print("\nEnter the Room Capacity : ");
         roomCap = input.nextInt();
         courseArray.add(new Course());
+        //cody was here
     }
 
 }

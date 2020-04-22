@@ -41,18 +41,17 @@ public class Student
     {
         lastName=last;
     }
-    public void setGPA(double GPA)
-    {
+
+    public void setGPA(double GPA) {
         this.GPA = GPA;
     }
-    public double getGPA()
-    {
+
+    public double getGPA() {
         return this.GPA;
     }
 
     public String getName() {
-        String name = this.firstName + this.lastName;
-        return name;
+        return this.firstName + this.lastName;
     }
 
     public void setStudentID(int studentID) {

@@ -6,7 +6,7 @@ public class Instructor
     private String department;
     private String email;
     private int instructorID;
-    private int nextInstructID = 100000;
+    private static int nextInstructID = 100000;
 
     public Instructor(String name, String prefix, String officeLocation, String department, String email) {
         setName(name);
@@ -46,7 +46,7 @@ public class Instructor
     }
 
     public String toString() {
-        String formattedString = "";
+        String formattedString;
         formattedString = String.format("InstructorID: %-9s %n Instructor Name: %-2s %-20s %n Department: %-20s %n Office: %-20s %n Email: %-30s",
                 this.instructorID, this.prefix, this.name, this.department, this.officeLocation, this.email);
         return formattedString;

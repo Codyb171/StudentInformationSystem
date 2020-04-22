@@ -27,7 +27,7 @@ public class Student
         for(int i =0; i < name.length(); i++)
         {
             if (name.startsWith(" ", i)) {
-                where = 1;
+                where = i;
             }
         }
 

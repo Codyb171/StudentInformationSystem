@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-//SCOTT WAS HERE
 public class Course
 {
     private String courseName;
@@ -7,7 +6,7 @@ public class Course
     private String roomNbr;
     private int courseCapacity;
     private int courseID;
-    private ArrayList<Student> enrolledStudents = new ArrayList<>();
+    private final ArrayList<Student> enrolledStudents = new ArrayList<>();
     private Instructor courseInstructor;
     private static int nextCourseID = 0;
 
@@ -17,13 +16,12 @@ public class Course
         setRoomNbr(roomNbr);
         setCourseCapacity(courseCapacity);
         setCourseID(nextCourseID);
+        courseInstructor = null;
         nextCourseID++;
     }
-
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-    }           
-
+    }
     public void setBuilding(String building) {
         this.building = building;
     }
@@ -44,32 +42,41 @@ public class Course
         enrolledStudents.add(newStudent);
     }
 
+    public void removeStudent(int studentToRemove) {
+        for (Student student : enrolledStudents) {
+            if (student.getStudentID() == studentToRemove) {
+                enrolledStudents.remove(student);
+            }
+        }
+
+    }
+
     public void setCourseInstructor(Instructor courseInstructor) {
         this.courseInstructor = courseInstructor;
     }
 
-    public String toString()
-    {
-        String returnState = "";
-        for(int i = 0; i < this.length(); i++)
-        {
-            if(this.charAt(i) == " ")
-            {
-                returnState += " ";
-            }
-            else if(this.charAt(i) != " ")
-            {
-                returnState += this.charAt(i)
-            }
-            else
-            {
-                continue;
-            }
-            
+    public String toString() {
+        String formattedString;
+        formattedString = String.format("Course # %-6d Course Name:%-10s Location: %-10s Room: %-4s Capacity: %-3d",
+                this.courseID, this.courseName, this.building, this.roomNbr, this.courseCapacity);
+        if (courseInstructor == null) {
+            formattedString += ("\nCourse Instructor: None");
+        } else {
+            formattedString += String.format("Course Instructor: %-3s %-20s", this.courseInstructor.getTitle(), this.courseInstructor.getName());
         }
-        return returnState;
+        return formattedString;
     }
 
-
+    public String getRoster() {
+        String roster = "";
+        if (enrolledStudents.isEmpty()) {
+            roster = "no Students in course";
+        } else {
+            for (Student student : enrolledStudents) {
+                roster += student.toString() + "\n";
+            }
+        }
+        return roster;
+    }
 
 }

@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
 
 public class SISApplication
 {
     public static ArrayList<Student> studentArray = new ArrayList<>();
     public static ArrayList<Course> courseArray = new ArrayList<>();
     public static ArrayList<Instructor> instructorArray = new ArrayList<>();
-    public static int instructorID =100000;
+
     public static Scanner input = new Scanner(System.in);
     public static void main(String[] args)
     {     int inUse = 0;
@@ -133,33 +132,45 @@ public class SISApplication
         int classID = input.nextInt();
         System.out.println("Pick a student: ");
         System.out.println("-------------------");
-        for (Student student : studentArray)
-        {
+        for (Student student : studentArray) {
             System.out.println(student.toString());
         }
         System.out.print("Enter Student ID: ");
         int studentID = input.nextInt();
+        studentID -= 1000;
+        courseArray.get(classID).addStudent(studentArray.get(studentID));
+    }
+    public static void removeStudent() {
+        printClasses();
+        int classID = input.nextInt();
+        System.out.println("Pick a student: ");
+        System.out.println("-------------------");
+        System.out.println(courseArray.get(classID).getRoster());
+        System.out.print("Enter Student ID: ");
+        int studentID = input.nextInt();
+        courseArray.get(classID).removeStudent(studentID);
+    }
+    public static void assignInstructor() {
+        printClasses();
+        int classID = input.nextInt();
+        for (Instructor instructor : instructorArray) {
+            System.out.println(instructor.toString());
+        }
+        System.out.print("Enter Instructor ID: ");
+        int instructorID = input.nextInt();
+        instructorID -= 100000;
+        courseArray.get(classID).setCourseInstructor(instructorArray.get(instructorID));
+    }
 
+    public static void printRoster() {
+        printClasses();
+        int classID = input.nextInt();
+        System.out.println(courseArray.get(classID).getRoster());
     }
-    public static void removeStudent()
-    {
-        //remove student from course
-    }
-    public static void assignInstructor()
-    {
-        //add instructor assignment
-    }
-    public static void printRoster()
-    {   
-    //Uncomment next 2 lines and assign the correct array reference location.    
-        //return String;
-        //String.format("%-8s %-14s %-12s %-12s %-12s %-12s", "Day: " + this.student");
-    }
-    public static void printClasses()
-    {
+
+    public static void printClasses() {
         System.out.println("Please Choose a Class:");
-        for (Course course : courseArray)
-        {
+        for (Course course : courseArray) {
             System.out.println(course.toString());
         }
         System.out.println("-------------------");

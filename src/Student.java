@@ -1,5 +1,3 @@
-import static java.lang.String.*;
-
 public class Student
 {
     private String firstName;
@@ -28,9 +26,8 @@ public class Student
         int where =0;
         for(int i =0; i < name.length(); i++)
         {
-            if (name.substring(i,i+1) == " ")
-            {
-                where =1;
+            if (name.startsWith(" ", i)) {
+                where = 1;
             }
         }
 
@@ -52,33 +49,29 @@ public class Student
     {
         return this.GPA;
     }
-    public String getName()
-    {
+
+    public String getName() {
         String name = this.firstName + this.lastName;
         return name;
     }
-    
-    public void setStudentID(int studentID)
-    {
-        this.studentID= studentID;
+
+    public void setStudentID(int studentID) {
+        this.studentID = studentID;
     }
-    
-    public void setStudentEmail(String email)
-    {
-        for(int i=0; i<email.length(); i++)
-        {
-            if (email.charAt(i) == '@')
-            {
+
+    public int getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentEmail(String email) {
+        for (int i = 0; i < email.length(); i++) {
+            if (email.charAt(i) == '@') {
                 studentEmail = email;
-            }
-            else
-            {
+            } else {
                 break;
             }
         }
     }
-
-    
     public void setStudentYear(int year)
     {
         if(year == 1)
@@ -98,12 +91,10 @@ public class Student
             studentYear = "Senior";
         }
     }
-
     public String getStudentYear()
     {
         return this.studentYear;
     }
-
     public String getStudentMajor()
     {
         return this.studentMajor;

@@ -122,6 +122,7 @@ public class SISApplication
         prefix = input.next();
         System.out.print("Office: ");
         office = input.next();
+        office += " " + input.next();
         System.out.print("Department: ");
         depart = input.next();
         System.out.print("Email: ");

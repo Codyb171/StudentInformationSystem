@@ -43,9 +43,9 @@ public class Course
     }
 
     public void removeStudent(int studentToRemove) {
-        for (Student student : enrolledStudents) {
-            if (student.getStudentID() == studentToRemove) {
-                enrolledStudents.remove(student);
+        for (int i = 0; i < enrolledStudents.size(); i++) {
+            if (enrolledStudents.get(i).getStudentID() == studentToRemove) {
+                enrolledStudents.remove(i);
             }
         }
 
@@ -62,7 +62,7 @@ public class Course
         if (courseInstructor == null) {
             formattedString += ("\nCourse Instructor: None");
         } else {
-            formattedString += String.format("Course Instructor: %-3s %-20s", this.courseInstructor.getTitle(), this.courseInstructor.getName());
+            formattedString += String.format("\nCourse Instructor: %-3s %-20s", this.courseInstructor.getTitle(), this.courseInstructor.getName());
         }
         return formattedString;
     }
@@ -70,7 +70,7 @@ public class Course
     public String getRoster() {
         String roster = "";
         if (enrolledStudents.isEmpty()) {
-            roster = "no Students in course";
+            roster = "No Students in course";
         } else {
             for (Student student : enrolledStudents) {
                 roster += student.toString() + "\n";

@@ -58,6 +58,7 @@ public class SISApplication
         for (int i = 0; i < 33; i++) {
             System.out.print("-");
         }
+        System.out.println();
         System.out.println(
                 "\n1: Create a Course \n" +
                         "2: Create a Student \n" +

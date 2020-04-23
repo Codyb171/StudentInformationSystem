@@ -58,6 +58,7 @@ public class SISApplication
         {
             System.out.print("-");
         }
+        System.out.println();
         System.out.println(
                 "1: Create a Course \n" +
                 "2: Create a Student \n" +

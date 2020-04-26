@@ -1,4 +1,10 @@
+// Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
+// Dr. Ezell | CIS 331
+// Purpose: Course CDF
 import java.util.ArrayList;
+
+// Austin was the main contributor to this CDF
+// all authors contributed to this CDF as well
 public class Course
 {
     //Initialize and invoke 

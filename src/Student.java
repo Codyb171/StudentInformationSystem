@@ -13,7 +13,7 @@ public class Student {
     private static int nextStudentID = 1000;
 
     public Student(String name, int year, String major, double GPA, String email) {
-        //fill constructor
+        //fill constructor with member methods and increment student id
         int space = splitName(name);
         setFirstName(name.substring(0,space));
         setLastName(name.substring(space));
@@ -46,6 +46,7 @@ public class Student {
     }
 
     public void setGPA(double NewGPA) {
+        //test that GPA is between 0-5 to be valid
         int test = 0;
         while (test == 0) {
             if (NewGPA >= 0.0) {

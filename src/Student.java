@@ -45,8 +45,22 @@ public class Student {
         lastName=last;
     }
 
-    public void setGPA(double GPA) {
-        this.GPA = GPA;
+    public void setGPA(double NewGPA) {
+        //test that GPA is between 0-5 to be valid
+        int test = 0;
+        while (test == 0) {
+            if (NewGPA >= 0.0) {
+                if (NewGPA <= 5.0) {
+                    test = 1;
+                }
+
+            }
+            if (test == 0) {
+                System.out.print("Invalid GPA, Must between 0.0 - 5.0, Please Re-enter: ");
+                NewGPA = errorCorrect.nextDouble();
+            }
+        }
+        this.GPA = NewGPA;
     }
 
     public double getGPA() {

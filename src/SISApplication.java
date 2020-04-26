@@ -11,6 +11,7 @@ public class SISApplication
     public static void main(String[] args)
     {     int inUse = 0;
           int choice;
+          // menu loop
           while (inUse == 0)
           {
               printMenu();
@@ -58,6 +59,7 @@ public class SISApplication
         for (int i = 0; i < 33; i++) {
             System.out.print("-");
         }
+        // menu print statement
         System.out.println(
                 "\n1: Create a Course \n" +
                         "2: Create a Student \n" +
@@ -83,6 +85,8 @@ public class SISApplication
         roomNumber = input.next();
         System.out.print("Enter the Room Capacity : ");
         roomCap = input.nextInt();
+        
+        // build objects into the courseArray
         courseArray.add(new Course(courseName, building, roomNumber, roomCap));
     }
     public static void createStudent() {
@@ -105,6 +109,8 @@ public class SISApplication
         GPA = input.nextDouble();
         System.out.print("Email: ");
         email = input.next();
+        
+        // builld object into studentArray
         studentArray.add(new Student(name, year, major, GPA, email));
     }
     public static void createInstructor() {
@@ -126,6 +132,8 @@ public class SISApplication
         depart = input.next();
         System.out.print("Email: ");
         email = input.next();
+        
+        // builds object into instructorArray
         instructorArray.add(new Instructor(name, prefix, office, depart, email));
     }
     public static void addStudent()
@@ -141,6 +149,8 @@ public class SISApplication
         System.out.print("Enter Student ID: ");
         int studentID = input.nextInt();
         studentID -= 1000;
+        
+        // test for valid studentID
         while (test == 0)
             try {
                 courseArray.get(classID).addStudent(studentArray.get(studentID));
@@ -159,6 +169,8 @@ public class SISApplication
         System.out.println(courseArray.get(classID).getRoster());
         System.out.print("Enter Student ID: ");
         int studentID = input.nextInt();
+        
+        // testing for valid student ID
         try {
             courseArray.get(classID).removeStudent(studentID);
             test = 1;
@@ -178,6 +190,8 @@ public class SISApplication
         System.out.print("Enter Instructor ID: ");
         int instructorID = input.nextInt();
         instructorID -= 100000;
+        
+        // test for valid instructor ID
         while (test == 0)
             try {
                 courseArray.get(classID).setCourseInstructor(instructorArray.get(instructorID));
@@ -188,6 +202,9 @@ public class SISApplication
             }
     }
 
+    
+    // print methods for roster and classes
+    
     public static void printRoster() {
         printClasses();
         int classID = input.nextInt();

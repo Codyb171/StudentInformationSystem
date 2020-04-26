@@ -4,7 +4,7 @@
 import java.util.Scanner;
 
 // Harry was the main contributor for this CDF
-// all authors worked coheisvley in this file as well
+// all authors worked cohesively in this file as well
 public class Instructor {
     Scanner errorCorrect = new Scanner(System.in);
     private String name;

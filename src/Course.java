@@ -1,15 +1,17 @@
 import java.util.ArrayList;
 public class Course
 {
+    //Initialize and invoke 
     private String courseName;
     private String building;
     private String roomNbr;
     private int courseCapacity;
     private int courseID;
     private final ArrayList<Student> enrolledStudents = new ArrayList<>();
-    private Instructor courseInstructor;
+    private Instructor courseInstructor; 
     private static int nextCourseID = 0;
-
+    
+    //Create class    
     public Course(String courseName, String building, String roomNbr, int courseCapacity) {
         setCourseName(courseName);
         setBuilding(building);
@@ -17,8 +19,9 @@ public class Course
         setCourseCapacity(courseCapacity);
         setCourseID(nextCourseID);
         courseInstructor = null;
-        nextCourseID++;
+        nextCourseID++;//Increment courseID up
     }
+    //Member methods - setters
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
@@ -37,7 +40,8 @@ public class Course
     public void setCourseID(int courseID) {
         this.courseID = courseID;
     }
-
+    
+    //Member methods - adders and removers
     public void addStudent(Student newStudent) {
         enrolledStudents.add(newStudent);
     }
@@ -48,13 +52,14 @@ public class Course
                 enrolledStudents.remove(i);
             }
         }
+    }//End of removeStudent() 
 
-    }
-
+    //Member method - set Course Instructor
     public void setCourseInstructor(Instructor courseInstructor) {
         this.courseInstructor = courseInstructor;
     }
 
+    //Member method - 
     public String toString() {
         String formattedString;
         formattedString = String.format("Course # %-6d Course Name:%-10s Location: %-10s Room: %-4s Capacity: %-3d",
@@ -65,7 +70,7 @@ public class Course
             formattedString += String.format("\nCourse Instructor: %-3s %-20s", this.courseInstructor.getTitle(), this.courseInstructor.getName());
         }
         return formattedString;
-    }
+    }//End of toString()
 
     public String getRoster() {
         String roster = "";
@@ -77,6 +82,5 @@ public class Course
             }
         }
         return roster;
-    }
-
-}
+    }//End of getRoster()
+}//End of class

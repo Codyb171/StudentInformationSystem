@@ -1,5 +1,11 @@
+// Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
+// Dr. Ezell | CIS 331
+// Purpose: Student CDF
 import java.util.Scanner;
 
+
+// Main contributor was Scott Baker in this CDF
+// All authors cohesivley worked on this file 
 public class Student {
     Scanner errorCorrect = new Scanner(System.in);
     private String firstName;

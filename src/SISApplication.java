@@ -58,7 +58,6 @@ public class SISApplication
         for (int i = 0; i < 33; i++) {
             System.out.print("-");
         }
-        System.out.println();
         System.out.println(
                 "\n1: Create a Course \n" +
                         "2: Create a Student \n" +
@@ -131,6 +130,7 @@ public class SISApplication
     }
     public static void addStudent()
     {
+        int test = 0;
         printClasses();
         int classID = input.nextInt();
         System.out.println("Pick a student: ");
@@ -141,9 +141,17 @@ public class SISApplication
         System.out.print("Enter Student ID: ");
         int studentID = input.nextInt();
         studentID -= 1000;
-        courseArray.get(classID).addStudent(studentArray.get(studentID));
+        while (test == 0)
+            try {
+                courseArray.get(classID).addStudent(studentArray.get(studentID));
+                test = 1;
+            } catch (Exception e) {
+                System.out.print("Invalid Student ID, Please Try again: ");
+                studentID = input.nextInt() - 1000;
+            }
     }
     public static void removeStudent() {
+        int test = 0;
         printClasses();
         int classID = input.nextInt();
         System.out.println("Pick a student: ");
@@ -151,9 +159,17 @@ public class SISApplication
         System.out.println(courseArray.get(classID).getRoster());
         System.out.print("Enter Student ID: ");
         int studentID = input.nextInt();
-        courseArray.get(classID).removeStudent(studentID);
+        try {
+            courseArray.get(classID).removeStudent(studentID);
+            test = 1;
+        } catch (Exception e) {
+            System.out.print("Invalid Student ID, Please Try again: ");
+            studentID = input.nextInt();
+        }
+
     }
     public static void assignInstructor() {
+        int test = 0;
         printClasses();
         int classID = input.nextInt();
         for (Instructor instructor : instructorArray) {
@@ -162,7 +178,14 @@ public class SISApplication
         System.out.print("Enter Instructor ID: ");
         int instructorID = input.nextInt();
         instructorID -= 100000;
-        courseArray.get(classID).setCourseInstructor(instructorArray.get(instructorID));
+        while (test == 0)
+            try {
+                courseArray.get(classID).setCourseInstructor(instructorArray.get(instructorID));
+                test = 1;
+            } catch (Exception e) {
+                System.out.print("Invalid Instructor ID, Please Try again: ");
+                instructorID = input.nextInt();
+            }
     }
 
     public static void printRoster() {

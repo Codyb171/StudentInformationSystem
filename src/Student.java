@@ -13,7 +13,7 @@ public class Student {
     private static int nextStudentID = 1000;
 
     public Student(String name, int year, String major, double GPA, String email) {
-        //fill constructor
+        //fill constructor with member methods and increment student id
         int space = splitName(name);
         setFirstName(name.substring(0,space));
         setLastName(name.substring(space));

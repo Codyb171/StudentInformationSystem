@@ -43,6 +43,17 @@ public class Student {
     }
 
     public void setGPA(double GPA) {
+        int test = 0;
+        while (test == 0) {
+            if (GPA >= 0.0 && GPA <= 5.0) {
+                test = 1;
+
+            }
+            if (test == 0) {
+                System.out.print("Invalid GPA, Must between 0.0 - 5.0, Please Re-enter: ");
+                GPA = errorCorrect.nextDouble();
+            }
+        }
         this.GPA = GPA;
     }
 

@@ -1,5 +1,10 @@
+// Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
+// Dr. Ezell | CIS 331
+// Purpose: Instructor CDF
 import java.util.Scanner;
 
+// Harry was the main contributor for this CDF
+// all authors worked coheisvley in this file as well
 public class Instructor {
     Scanner errorCorrect = new Scanner(System.in);
     private String name;
@@ -9,7 +14,7 @@ public class Instructor {
     private String email;
     private int instructorID;
     private static int nextInstructID = 100000;
-
+    
     public Instructor(String name, String prefix, String officeLocation, String department, String email) {
         setName(name);
         setPrefix(prefix);

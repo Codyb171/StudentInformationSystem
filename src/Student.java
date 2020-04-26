@@ -9,9 +9,11 @@ public class Student {
     private double GPA;
     private String studentEmail;
     private int studentID;
+    //static data field to be used to track student id
     private static int nextStudentID = 1000;
 
     public Student(String name, int year, String major, double GPA, String email) {
+        //fill constructor
         int space = splitName(name);
         setFirstName(name.substring(0,space));
         setLastName(name.substring(space));
@@ -24,6 +26,7 @@ public class Student {
     }
 
     public int splitName(String name) {
+        //added member method to split the first and last names of any entry
         int where =0;
         for(int i =0; i < name.length(); i++) {
             if (name.startsWith(" ", i)) {
@@ -63,6 +66,7 @@ public class Student {
     }
 
     public void setStudentEmail(String email) {
+        //test that emails have an @ symbol
         int test = 0;
         while (test == 0) {
             for (int i = 0; i < email.length(); i++) {
@@ -79,6 +83,7 @@ public class Student {
     }
 
     public void setStudentYear(int year) {
+        //if else to match student year integer to student year string
         if(year == 1) {
             studentYear = "Freshman";
         } else if(year == 2) {
@@ -103,6 +108,7 @@ public class Student {
     }
 
     public String toString() {
+        //formatted string output for students printed within output
         String printOut;
         printOut = String.format("Student ID:%-6d Student Name: %-10s, %-15s Major: %-10s Year: %-15s",
                 this.studentID, this.lastName, this.firstName, this.studentMajor, this.studentYear);

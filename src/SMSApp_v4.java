@@ -5,10 +5,10 @@
 
 //Use MenuOrder example as reference
 // Assignment of Duties
-//   Build GUI - Tanner and Austin
-//   Develop the new needed methods(most difficult) - Cody
-//   Prepare Database files - William
-//   Develop Dataabase saving feature (Phase 3) - Harry and Cody
+//   Phase 1 Build GUI - Austin, Tanner, William
+//   Phase 2 Develop the new needed methods(most difficult) - Cody, Harry
+//   Phase 3 Prepare Database files - William, Tanner, Austin
+//   Phase 4 Develop Database saving feature (Phase 3) - Harry, Cody, Austin, Tanner, William
 
 
 import javafx.application.Application;

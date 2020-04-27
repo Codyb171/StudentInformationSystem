@@ -1,6 +1,14 @@
+// Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
+// Dr. Ezell | CIS 331
+// Purpose: Main Method for the Applicaiton 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// main contributors were Cody and Tanner
+// all authors worked together on the main method. The team coordaintor 
+// for the overall coding logic was Cody, he worked in every file making
+// most edits and corrections.
+// all authors did vast testing of every part of the applicaiton.
 public class SISApplication
 {
     public static ArrayList<Student> studentArray = new ArrayList<>();

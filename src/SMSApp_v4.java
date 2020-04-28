@@ -2,15 +2,9 @@
 // Dr. Ezell | CIS 331
 // Purpose: Main Method for the Applicaiton 
 //  Link to JMU OneDrive: https://dukesjmuedu-my.sharepoint.com/:f:/g/personal/elpheeti_dukes_jmu_edu/Er7HS_yJyotJnm-GCDn661sBVS7mJo0PJ3uKvEESinPfwA?e=t1WDck
-//Please connect to database shenu to work with this application. See OneDrive for details. 
+//Please connect to database SHENU to work with this application. See OneDrive for details. 
 
 // Use MenuOrder example as reference
-// Assignment of Duties
-//   Phase 1 Build GUI - Austin, Tanner, William
-//   Phase 2 Develop the new needed methods(most difficult) - Cody, Harry
-//   Phase 3 Prepare Database files - William, Tanner, Austin
-//   Phase 4 Develop Database saving feature (Phase 3) - Harry, Cody, Austin, Tanner, William
-
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -33,12 +27,45 @@ import oracle.jdbc.pool.*; //Error shown until Database is connected.
 
 
 public class SMSApp_v4 extends Application {
-    // Our Database Connection method needs these 
-    // objects. We declare them here and point them
-    // to instance objects below.
-    Connection dbConn;
-    Statement commStmt;
-    ResultSet dbResults;
+    
+    //Controls for only student, course, and instructor
+    //Still need add student, course, and instructor buttons, and entire bottom half controls for UI
+    TextField txtStudentName = new TextField();
+    ComboBox combStudentYear = new ComboBox();
+    TextField txtStudentMajor = new TextField();
+    TextField txtStudentGPA = new TextField();
+    TextField txtStudentEmail = new TextField();
+    Label lblAddStudent = new Label("Add Student:");
+    Label lblStudentName = new Label("Name: ");
+    Label lblStudentYear = new Label("Year: ");
+    Label lblStudentMajor = new Label("Major: ");
+    Label lblStudentGPA = new Label("GPA: ");
+    Label lblStudentEmail = new Label("Email: ");
+    TextField txtCourseName = new TextField();
+    ComboBox combCourseBuilding = new ComboBox();
+    TextField txtCourseRoom = new TextField();
+    TextField txtCourseCapacity = new TextField();
+    Label lblAddCourse = new Label("Add Course:");
+    Label lblCourseName = new Label("Name: ");
+    Label lblCourseBuilding = new Label("Building: ");
+    Label lblCourseRoom = new Label("Room: ");
+    Label lblCourseCapacity = new Label("Max Capacity: ");
+    TextField txtInstructorName = new TextField();
+    ComboBox combInstructorPrefix = new ComboBox();
+    TextField txtInstructorOffice = new TextField();
+    TextField txtInstructorDepartment = new TextField();
+    TextField txtInstructorEmail = new TextField();
+    Label lblAddInstructor = new Label("Add Instructor");
+    Label lblInstructorName = new Label("Name: ");
+    Label lblInstructorPrefix = new Label("Prefix: ");
+    Label lblInstructorOffice = new Label("Office: ");
+    Label lblInstructorDepartment = new Label("Department: ");
+    Label lblInstructorEmail = new Label("Email: ");
+        // Our Database Connection method needs these objects. 
+        // We declare them here and point them to instance objects below.
+        Connection dbConn;
+        Statement commStmt;
+        ResultSet dbResults;
 
     @Override
     public void start(Stage primaryStage) {

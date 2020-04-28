@@ -2,8 +2,9 @@
 // Dr. Ezell | CIS 331
 // Purpose: Main Method for the Applicaiton 
 //  Link to JMU OneDrive: https://dukesjmuedu-my.sharepoint.com/:f:/g/personal/elpheeti_dukes_jmu_edu/Er7HS_yJyotJnm-GCDn661sBVS7mJo0PJ3uKvEESinPfwA?e=t1WDck
+//Please connect to database shenu to work with this application. See OneDrive for details. 
 
-//Use MenuOrder example as reference
+// Use MenuOrder example as reference
 // Assignment of Duties
 //   Phase 1 Build GUI - Austin, Tanner, William
 //   Phase 2 Develop the new needed methods(most difficult) - Cody, Harry
@@ -55,8 +56,8 @@ public class SMSApp_v4 extends Application {
 //            // Set up your connection strings
 //            // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
 //            String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-//            String userID = "User"; // Change to YOUR Oracle username
-//            String userPASS = "Password"; // Change to YOUR Oracle password
+//            String userID = "shenu"; // Change to YOUR Oracle username
+//            String userPASS = "shenu"; // Change to YOUR Oracle password
 //            OracleDataSource ds;
 //
 //            // Clear Box Testing - Print each query to check SQL syntax

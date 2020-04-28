@@ -8,13 +8,14 @@
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import oracle.jdbc.pool.OracleDataSource;
+import oracle.jdbc.pool.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 
 // For ArrayList
 // These enable ComboBoxes
@@ -23,6 +24,45 @@ import java.util.ArrayList;
 
 
 public class SMSApp_v4 extends Application {
+    
+    //Controls for only student, course, and instructor
+    //Still need add student, course, and instructor buttons, and entire bottom half controls for UI
+    TextField txtStudentName = new TextField();
+    ComboBox combStudentYear = new ComboBox();
+    TextField txtStudentMajor = new TextField();
+    TextField txtStudentGPA = new TextField();
+    TextField txtStudentEmail = new TextField();
+    Label lblAddStudent = new Label("Add Student:");
+    Label lblStudentName = new Label("Name: ");
+    Label lblStudentYear = new Label("Year: ");
+    Label lblStudentMajor = new Label("Major: ");
+    Label lblStudentGPA = new Label("GPA: ");
+    Label lblStudentEmail = new Label("Email: ");
+    TextField txtCourseName = new TextField();
+    ComboBox combCourseBuilding = new ComboBox();
+    TextField txtCourseRoom = new TextField();
+    TextField txtCourseCapacity = new TextField();
+    Label lblAddCourse = new Label("Add Course:");
+    Label lblCourseName = new Label("Name: ");
+    Label lblCourseBuilding = new Label("Building: ");
+    Label lblCourseRoom = new Label("Room: ");
+    Label lblCourseCapacity = new Label("Max Capacity: ");
+    TextField txtInstructorName = new TextField();
+    ComboBox combInstructorPrefix = new ComboBox();
+    TextField txtInstructorOffice = new TextField();
+    TextField txtInstructorDepartment = new TextField();
+    TextField txtInstructorEmail = new TextField();
+    Label lblAddInstructor = new Label("Add Instructor");
+    Label lblInstructorName = new Label("Name: ");
+    Label lblInstructorPrefix = new Label("Prefix: ");
+    Label lblInstructorOffice = new Label("Office: ");
+    Label lblInstructorDepartment = new Label("Department: ");
+    Label lblInstructorEmail = new Label("Email: ");
+        // Our Database Connection method needs these objects. 
+        // We declare them here and point them to instance objects below.
+        Connection dbConn;
+        Statement commStmt;
+        ResultSet dbResults;
     // Our Database Connection method needs these objects.
     // We declare them here and point them to instance objects below.
     public static ArrayList<Student> studentArray = new ArrayList<>();

@@ -30,10 +30,15 @@ import javafx.geometry.Pos;
 //These are needed for Oracle SQL database bridge provided by Dr.Ezell
 import java.sql.*;
 import oracle.jdbc.pool.*; //Error shown until Database is connected. 
- 
+
 
 public class SMSApp_v4 extends Application {
-
+    // Our Database Connection method needs these 
+    // objects. We declare them here and point them
+    // to instance objects below.
+    Connection dbConn;
+    Statement commStmt;
+    ResultSet dbResults;
 
     @Override
     public void start(Stage primaryStage) {

@@ -52,12 +52,9 @@ public class SMSApp_v4 extends Application {
     }
     
     
-////   NEED DATABASE LINKED FOR THIS BRIDGE TO WORK. UNCOMMENT TO SEE ERRORS! 
-    
-    
-    //DATABASE BRIDGE NETBEANS FREE FROM DR.EZELL - Refer to InventoryUI Example. 
     public void sendDBCommand(String sqlQuery)
-        {
+        {//DATABASE BRIDGE NETBEANS FREE FROM DR.EZELL - Refer to InventoryUI Example. 
+
             // Set up your connection strings
             // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
             String URL = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -103,4 +100,4 @@ public class SMSApp_v4 extends Application {
                 System.out.println(e.toString());
             }
         }
-}
+}//END OF CLASS

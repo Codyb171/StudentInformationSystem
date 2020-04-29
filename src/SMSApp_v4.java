@@ -81,7 +81,7 @@ public class SMSApp_v4 extends Application {
 
     //Build Course UI Elements
     ToggleGroup addOrRemove = new ToggleGroup();
-    Label lblCourseEdit = new Label("Edit a Course");
+    Label lblCourseEdit = new Label("Modify a Course:");
     RadioButton togAddStudent = new RadioButton("Add Student");
     RadioButton togRemoveStudent = new RadioButton("Remove Student");
     Label lblChooseStudent = new Label("Choose a Student:");
@@ -97,8 +97,7 @@ public class SMSApp_v4 extends Application {
     public static int instructorSpot = 0;
 
     // Access course Roster
-    Label needCourseRoster = new Label("Print a Course Roster? ");
-    Button printRoster = new Button("Print Roster");
+    RadioButton printRoster = new RadioButton("Print Roster");
     // Our Database Connection method needs these objects.
     // We declare them here and point them to instance objects below.
     public static ArrayList<Student> studentArray = new ArrayList<>();
@@ -114,6 +113,7 @@ public class SMSApp_v4 extends Application {
         // first we assign the Add and remove student buttons into a group to ensure they work properly
         togAddStudent.setToggleGroup(addOrRemove);
         togRemoveStudent.setToggleGroup(addOrRemove);
+        printRoster.setToggleGroup(addOrRemove);
 
         //Create Panes for control layout
         GridPane addStudentPane = new GridPane();
@@ -176,13 +176,14 @@ public class SMSApp_v4 extends Application {
         editCoursePane.add(lblCourseEdit, 0, 0);
         editCoursePane.add(togAddStudent, 0, 1);
         editCoursePane.add(togRemoveStudent, 1, 1);
-        editCoursePane.add(lblChooseStudent, 0, 2);
-        editCoursePane.add(combStudentList, 1, 2);
-        editCoursePane.add(lblChooseCourse, 0, 3);
-        editCoursePane.add(combCourseList, 1, 3);
-        editCoursePane.add(checkInstructor, 0, 4);
-        editCoursePane.add(lblInstructorWho, 0, 5);
-        editCoursePane.add(combInstructorList, 1, 5);
+        editCoursePane.add(printRoster, 0, 2);
+        editCoursePane.add(lblChooseStudent, 0, 3);
+        editCoursePane.add(combStudentList, 1, 3);
+        editCoursePane.add(lblChooseCourse, 0, 4);
+        editCoursePane.add(combCourseList, 1, 4);
+        editCoursePane.add(checkInstructor, 0, 5);
+        editCoursePane.add(lblInstructorWho, 0, 6);
+        editCoursePane.add(combInstructorList, 1, 6);
         combInstructorList.setDisable(true);
         //Edit the outputPane
         outputPane.setAlignment(Pos.CENTER);

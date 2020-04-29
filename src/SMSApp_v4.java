@@ -8,30 +8,30 @@
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.Scene;
-import javafx.event.*;
+import oracle.jdbc.pool.OracleDataSource;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 // For ArrayList
-import java.util.*;
-
 // These enable ComboBoxes
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 
 //These are needed for Oracle SQL database bridge provided by Dr.Ezell
-import java.sql.*;
-import oracle.jdbc.pool.*; //Error shown until Database is connected. 
 
 
 public class SMSApp_v4 extends Application {
-        // Our Database Connection method needs these objects. 
-        // We declare them here and point them to instance objects below.
-        Connection dbConn;
-        Statement commStmt;
-        ResultSet dbResults;
+    // Our Database Connection method needs these objects.
+    // We declare them here and point them to instance objects below.
+    public static ArrayList<Student> studentArray = new ArrayList<>();
+    public static ArrayList<Course> courseArray = new ArrayList<>();
+    public static ArrayList<Instructor> instructorArray = new ArrayList<>();
+    Connection dbConn;
+    Statement commStmt;
+    ResultSet dbResults;
+
 
     @Override
     public void start(Stage primaryStage) {

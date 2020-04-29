@@ -95,6 +95,10 @@ public class SMSApp_v4 extends Application {
     public static int courseSpot = 0;
     public static int studentSpot = 0;
     public static int instructorSpot = 0;
+
+    // Access course Roster
+    Label needCourseRoster = new Label("Print a Course Roster? ");
+    Button printRoster = new Button("Print Roster");
     // Our Database Connection method needs these objects.
     // We declare them here and point them to instance objects below.
     public static ArrayList<Student> studentArray = new ArrayList<>();
@@ -180,11 +184,11 @@ public class SMSApp_v4 extends Application {
         editCoursePane.add(lblInstructorWho, 0, 5);
         editCoursePane.add(combInstructorList, 1, 5);
         combInstructorList.setDisable(true);
-
         //Edit the outputPane
         outputPane.setAlignment(Pos.CENTER);
         outputBox.setMaxWidth(500);
         outputPane.add(outputBox, 0, 0);
+        //add my course roster stuff
 
         //set the overallPane
         overallPane.setAlignment(Pos.CENTER);

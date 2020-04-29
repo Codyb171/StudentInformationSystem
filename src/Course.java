@@ -46,7 +46,27 @@ public class Course
     public void setCourseID(int courseID) {
         this.courseID = courseID;
     }
-    
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public String getRoomNbr() {
+        return roomNbr;
+    }
+
+    public int getCourseCapacity() {
+        return courseCapacity;
+    }
+
+    public int getCourseID() {
+        return courseID;
+    }
+
     //Member methods - adders and removers
     public void addStudent(Student newStudent) {
         enrolledStudents.add(newStudent);

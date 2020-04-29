@@ -127,6 +127,10 @@ public class Student {
         studentMajor = major;
     }
 
+    public String getFormatName() {
+        return this.lastName + ", " + this.firstName;
+    }
+
     public String toString() {
         //formatted string output for students printed within output
         String printOut;

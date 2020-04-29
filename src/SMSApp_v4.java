@@ -9,7 +9,8 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oracle.jdbc.pool.*;
-
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,11 +59,8 @@ public class SMSApp_v4 extends Application {
     Label lblInstructorOffice = new Label("Office: ");
     Label lblInstructorDepartment = new Label("Department: ");
     Label lblInstructorEmail = new Label("Email: ");
-        // Our Database Connection method needs these objects. 
-        // We declare them here and point them to instance objects below.
-        Connection dbConn;
-        Statement commStmt;
-        ResultSet dbResults;
+
+    
     // Our Database Connection method needs these objects.
     // We declare them here and point them to instance objects below.
     public static ArrayList<Student> studentArray = new ArrayList<>();

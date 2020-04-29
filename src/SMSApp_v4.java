@@ -287,6 +287,7 @@ public class SMSApp_v4 extends Application {
             for (int i = 0; i < email.length(); i++) {
                 if (email.startsWith("@", i)) {
                     test = 1;
+                    break;
                 }
             }
             if (test == 0) {

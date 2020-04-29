@@ -73,9 +73,14 @@ public class Student {
         return this.GPA;
     }
 
-    public String getName() {
-        return this.firstName + this.lastName;
+    public String getFirstName() {
+        return this.firstName;
     }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
 
     public void setStudentID(int studentID) {
         this.studentID = studentID;

@@ -100,23 +100,6 @@ public class SMSApp_v4 extends Application {
     public static ArrayList<Student> studentArray = new ArrayList<>();
     public static ArrayList<Course> courseArray = new ArrayList<>();
     public static ArrayList<Instructor> instructorArray = new ArrayList<>();
-
-    //String variables to save textbox data to simplify constructors
-    public String courseName;
-    public String building;
-    public String roomNumber;
-    public int roomCap;
-    public String sName;
-    public int grade;
-    public double GPA;
-    public String sEmail;
-    public String major;
-    public String iName;
-    public String iPrefix;
-    public String office;
-    public String department;
-    public String iEmail;
-    public int test = 0;
     Connection dbConn;
     Statement commStmt;
     ResultSet dbResults;
@@ -212,65 +195,24 @@ public class SMSApp_v4 extends Application {
         overallPane.add(editCoursePane, 0, 2);
         overallPane.add(outputPane, 1, 2);
 
-        //invalid Email issue
-        TextInputDialog alert = new TextInputDialog();
-        alert.setTitle("ERROR!");
-        alert.setHeaderText("Invalid Email Address found!");
-        alert.setContentText("Please reenter the email and make sure to include an \"@\" symbol!");
-
-
         Scene primaryScene = new Scene(overallPane, 1100, 500);
         primaryStage.setTitle("System Management System v0.4");
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 
         checkInstructor.setOnAction(e -> {
-            if (checkInstructor.isSelected() == true) {
-                combInstructorList.setDisable(false);
-            }
-            if (checkInstructor.isSelected() == false) {
-                combInstructorList.setDisable(true);
-            }
+            combInstructorList.setDisable(checkInstructor.isSelected() != true);
         });
         rdoAddCourse.setOnAction(e -> {
-            courseName = txtCourseName.getText();
-            txtCourseName.clear();
-            building = String.valueOf(combCourseBuilding.getValue());
-            combCourseBuilding.valueProperty().set(null);
-            roomNumber = txtCourseRoom.getText();
-            txtCourseRoom.clear();
-            roomCap = Integer.parseInt(txtCourseCapacity.getText());
-            txtCourseCapacity.clear();
-            courseArray.add(new Course(courseName, building, roomNumber, roomCap));
+            createCourse();
+            clearCourseForm();
             courseList.add(courseArray.get(courseSpot).getCourseName());
             courseSpot++;
 
         });
         rdoAddStudent.setOnAction(e -> {
-            sName = txtStudentName.getText();
-            major = txtStudentMajor.getText();
-            sEmail = txtStudentEmail.getText();
-            GPA = Double.parseDouble(txtStudentGPA.getText());
-            grade = checkYear(combStudentYear.getValue());
-            while (test == 0) {
-                for (int i = 0; i < sEmail.length(); i++) {
-                    if (sEmail.startsWith("@", i)) {
-                        test = 1;
-                    }
-                }
-                if (test == 0) {
-                    Optional<String> result = alert.showAndWait();
-                    if (result.isPresent()) {
-                        sEmail = result.get();
-                    }
-                }
-            }
-            txtStudentName.clear();
-            txtStudentEmail.clear();
-            txtStudentMajor.clear();
-            txtStudentGPA.clear();
-            combStudentYear.valueProperty().set(null);
-            studentArray.add(new Student(sName, grade, major, GPA, sEmail));
+            createStudent();
+            clearStudentForm();
             studentList.add(studentArray.get(studentSpot).getFormatName());
             studentSpot++;
         });
@@ -326,7 +268,38 @@ public class SMSApp_v4 extends Application {
     }
 
 
-    private int checkYear(Object value) {
+    public void createStudent() {
+        String name = txtStudentName.getText();
+        String major = txtStudentMajor.getText();
+        String email = checkEmail(txtStudentEmail.getText());
+        double GPA = Double.parseDouble(txtStudentGPA.getText());
+        int year = checkYear(combStudentYear.getValue());
+        studentArray.add(new Student(name, year, major, GPA, email));
+    }
+
+    public String checkEmail(String email) {
+        TextInputDialog alert = new TextInputDialog();
+        alert.setTitle("ERROR!");
+        alert.setHeaderText("Invalid Email Address found!");
+        alert.setContentText("Please reenter the email and make sure to include an \"@\" symbol!");
+        int test = 0;
+        while (test == 0) {
+            for (int i = 0; i < email.length(); i++) {
+                if (email.startsWith("@", i)) {
+                    test = 1;
+                }
+            }
+            if (test == 0) {
+                Optional<String> result = alert.showAndWait();
+                if (result.isPresent()) {
+                    email = result.get();
+                }
+            }
+        }
+        return email;
+    }
+
+    public int checkYear(Object value) {
         String year = String.valueOf(value);
         year.toLowerCase();
         year = year.substring(0, 2);
@@ -342,4 +315,28 @@ public class SMSApp_v4 extends Application {
         }
         return grade;
     }
+
+    public void clearStudentForm() {
+        txtStudentName.clear();
+        txtStudentEmail.clear();
+        txtStudentMajor.clear();
+        txtStudentGPA.clear();
+        combStudentYear.valueProperty().set(null);
+    }
+
+    public void createCourse() {
+        String courseName = txtCourseName.getText();
+        String building = String.valueOf(combCourseBuilding.getValue());
+        String roomNumber = txtCourseRoom.getText();
+        int roomCap = Integer.parseInt(txtCourseCapacity.getText());
+        courseArray.add(new Course(courseName, building, roomNumber, roomCap));
+    }
+
+    public void clearCourseForm() {
+        txtCourseName.clear();
+        combCourseBuilding.valueProperty().set(null);
+        txtCourseRoom.clear();
+        txtCourseCapacity.clear();
+    }
+
 }

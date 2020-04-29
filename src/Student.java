@@ -76,7 +76,6 @@ public class Student {
     public String getFirstName() {
         return this.firstName;
     }
-
     public String getLastName() {
         return this.lastName;
     }

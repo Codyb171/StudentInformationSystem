@@ -7,10 +7,12 @@
 // Use MenuOrder example as reference
 
 import javafx.application.Application;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import oracle.jdbc.pool.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import oracle.jdbc.pool.OracleDataSource;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +30,7 @@ public class SMSApp_v4 extends Application {
     
     //Controls for only student, course, and instructor
     //Still need add student, course, and instructor buttons, and entire bottom half controls for UI
+    //Student UI Elements
     TextField txtStudentName = new TextField();
     ComboBox combStudentYear = new ComboBox();
     TextField txtStudentMajor = new TextField();
@@ -39,6 +42,7 @@ public class SMSApp_v4 extends Application {
     Label lblStudentMajor = new Label("Major: ");
     Label lblStudentGPA = new Label("GPA: ");
     Label lblStudentEmail = new Label("Email: ");
+    //Course UI Elements
     TextField txtCourseName = new TextField();
     ComboBox combCourseBuilding = new ComboBox();
     TextField txtCourseRoom = new TextField();
@@ -48,6 +52,7 @@ public class SMSApp_v4 extends Application {
     Label lblCourseBuilding = new Label("Building: ");
     Label lblCourseRoom = new Label("Room: ");
     Label lblCourseCapacity = new Label("Max Capacity: ");
+    //Instructor UI Elements
     TextField txtInstructorName = new TextField();
     ComboBox combInstructorPrefix = new ComboBox();
     TextField txtInstructorOffice = new TextField();

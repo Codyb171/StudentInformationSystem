@@ -8,6 +8,8 @@
 // Use MenuOrder example as reference
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -92,7 +94,7 @@ public class SMSApp_v4 extends Application {
     CheckBox checkInstructor = new CheckBox("New Instructor?");
     Label lblInstructorWho = new Label("Instructor is:");
     ComboBox combInstructorList = new ComboBox(instructorList);
-    Button butCourseEdit = new Button("Run Changes");
+    Button butCourseEdit = new Button("Execute?");
     TextArea outputBox = new TextArea();
     public static int courseSpot = 0;
     public static int studentSpot = 0;
@@ -237,11 +239,22 @@ public class SMSApp_v4 extends Application {
             instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
-
+        addOrRemove.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                combStudentList.setDisable(printRoster.isSelected());
+            }
+        });
         butCourseEdit.setOnAction(e -> {
             if (togAddStudent.isSelected()) {
                 addStudentToCourse();
                 resetEditCourseForm();
+            }
+            if (togRemoveStudent.isSelected()) {
+                removeStudentFromCourse();
+                resetEditCourseForm();
+            }
+            if (printRoster.isSelected()) {
+                //add roster stuff
             }
         });
 

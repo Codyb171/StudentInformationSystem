@@ -227,6 +227,7 @@ public class SMSApp_v4 extends Application {
         rdoAddStudent.setOnAction(e -> {
             createStudent();
             clearStudentForm();
+            showStudent();
             studentList.add(studentArray.get(studentSpot).getFormatName());
             studentSpot++;
         });

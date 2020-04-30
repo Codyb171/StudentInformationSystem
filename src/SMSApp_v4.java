@@ -208,6 +208,7 @@ public class SMSApp_v4 extends Application {
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 
+        //Lambda controls for the buttons 
         checkInstructor.setOnAction(e -> {
             combInstructorList.setDisable(checkInstructor.isSelected() != true);
         });
@@ -216,7 +217,6 @@ public class SMSApp_v4 extends Application {
             clearCourseForm();
             courseList.add(courseArray.get(courseSpot).getCourseName());
             courseSpot++;
-
         });
         rdoAddStudent.setOnAction(e -> {
             createStudent();
@@ -230,7 +230,7 @@ public class SMSApp_v4 extends Application {
             instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
-    }
+    }// END OF START() 
 
 
     public static void main(String[] args) {
@@ -281,7 +281,6 @@ public class SMSApp_v4 extends Application {
             System.out.println(e.toString());
         }
     }
-
 
     public void createStudent() {
         String name = txtStudentName.getText();

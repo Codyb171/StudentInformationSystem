@@ -111,10 +111,10 @@ public class SMSApp_v4 extends Application {
 
 
     //Declaring Database table name variables (Tanner)
-        String studentTable = "STUDENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
-        String instructorTable = "INSTRUCTOR"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
-        String courseTable = "COURSE"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
-        String studentEnrollmentTable = "STUDENTENROLLMENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
+    String studentTable = "STUDENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
+    String instructorTable = "INSTRUCTOR"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
+    String courseTable = "COURSE"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
+    String studentEnrollmentTable = "STUDENTENROLLMENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
 
     @Override
     public void start(Stage primaryStage) {
@@ -214,7 +214,7 @@ public class SMSApp_v4 extends Application {
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 
-        //Lambda controls for the buttons 
+        //Lambda controls for the buttons
         checkInstructor.setOnAction(e -> {
             combInstructorList.setDisable(checkInstructor.isSelected() != true);
         });
@@ -237,7 +237,15 @@ public class SMSApp_v4 extends Application {
             instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
-    }// END OF START() 
+
+        butCourseEdit.setOnAction(e -> {
+            if (togAddStudent.isSelected()) {
+                addStudentToCourse();
+                resetEditCourseForm();
+            }
+        });
+
+    }// END OF START()
 
 
     public static void main(String[] args) {
@@ -399,16 +407,42 @@ public class SMSApp_v4 extends Application {
                         + dbResults.getString(2) + "\t" 
                         + dbResults.getString(3) + "\t"
                         + dbResults.getString(4) + "\n";
-                
+
                 // Append the outputString to the TextArea's contents.
                 outputBox.appendText(outputString);
             }
-        }
-        catch (SQLException sqle)
-        {
+        } catch (SQLException sqle) {
             outputBox.setText(sqle.toString());
         }
     }//End of showStudent()
-    
-    
+
+    public void addStudentToCourse() {
+        String studentName = String.valueOf(combStudentList.getValue());
+        String courseName = String.valueOf(combCourseList.getValue());
+        int studentID = 1000000000;
+        int courseID = 1000000000;
+        for (int i = 0; i < courseArray.size(); i++) {
+            if (courseArray.get(i).getCourseName().equals(courseName)) {
+                courseID = courseArray.get(i).getCourseID();
+                break;
+            }
+        }
+        for (int s = 0; s < studentArray.size(); s++) {
+            if (studentArray.get(s).getFormatName().equals(studentName)) {
+                studentID = studentArray.get(s).getStudentID();
+                studentID -= 1000;
+                break;
+            }
+        }
+        courseArray.get(courseID).addStudent(studentArray.get(studentID));
+    }
+
+    public void resetEditCourseForm() {
+        addOrRemove.selectToggle(null);
+        combStudentList.valueProperty().set(null);
+        combCourseList.valueProperty().set(null);
+        checkInstructor.setSelected(false);
+        combInstructorList.valueProperty().set(null);
+        combInstructorList.setDisable(true);
+    }
 }//End of SMSAPP_v4()

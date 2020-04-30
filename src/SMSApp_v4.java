@@ -423,7 +423,7 @@ public class SMSApp_v4 extends Application {
     public void insertInstructor(Instructor newInstructor)
     {
         String sqlQuery = "INSERT INTO" + dataBaseUser + "." + instructorTable +
-                " (INSTRID, INSTRNAME, INSTRPREFIX, INSTROFFICE, INSTRDEPT, INSTREMAIL)"
+                " (INSTRUCTORID, INSTRUCTORNAME, INSTRUCTORPREFIX, INSTRUCTOROFFICE, INSTRUCTORDEPARTMENT, INSTRUCTOREMAIL)"
                 + " VALUES (";
         sqlQuery += newInstructor.getInstructorID() + ",";
         sqlQuery += "'" + newInstructor.getName() + "',";
@@ -431,23 +431,7 @@ public class SMSApp_v4 extends Application {
         sqlQuery += "'" + newInstructor.getOfficeLocation() + "',";
         sqlQuery += "'" + newInstructor.getDepartment() + "',";
         sqlQuery += "'" + newInstructor.getEmail() + "')";
-        
-        sendDBCommand(sqlQuery);
-        
-    }
-    
-    public void insertCourse(Course newCourse)
-    {
-        String sqlQuery = "INSERT INTO" + dataBaseUser + "." + courseTable + 
-                " (COURSEID, COURSENAME, COURSEBLDG, COURSEROOM, COURSECAPACITY, COURSEINSTRUCTOR)"
-                + " VALUES (";
-        sqlQuery += newCourse.getCourseID() + ",";
-        sqlQuery += "'" + newCourse.getCourseName() + "',";
-        sqlQuery += "'" + newCourse.getBuilding() + "',";
-        sqlQuery += "'" + newCourse.getRoomNbr() + "',";
-        sqlQuery += "'" + newCourse.getCourseCapacity() + "',";
-        sqlQuery += "'" + "" + "')";
-        
+
         sendDBCommand(sqlQuery);
     }
     
@@ -522,8 +506,13 @@ public class SMSApp_v4 extends Application {
     }
 
     public void setCourseInstructor() {
-        String instructorName = String.valueOf(combInstructorList.getValue());
         int courseID = courseIDToEdit();
+        int instructorID = instructorToUse();
+        courseArray.get(courseID).setCourseInstructor(instructorArray.get(instructorID));
+    }
+
+    public int instructorToUse() {
+        String instructorName = String.valueOf(combInstructorList.getValue());
         int instructorID = 1000000;
         for (int i = 0; i < instructorArray.size(); i++) {
             if (instructorArray.get(i).instructorNameFormat().equals(instructorName)) {
@@ -532,7 +521,7 @@ public class SMSApp_v4 extends Application {
                 break;
             }
         }
-        courseArray.get(courseID).setCourseInstructor(instructorArray.get(instructorID));
+        return instructorID;
     }
 
     public void resetEditCourseForm() {
@@ -543,4 +532,12 @@ public class SMSApp_v4 extends Application {
         combInstructorList.valueProperty().set(null);
         combInstructorList.setDisable(true);
     }
+
+    public void updateCourseFromDatabase() {
+        int courseCount = 1;
+        for (int i = 0; i < courseCount; i++) {
+
+        }
+    }
+
 }//End of SMSAPP_v4()

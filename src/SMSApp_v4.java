@@ -215,6 +215,32 @@ public class SMSApp_v4 extends Application {
         overallPane.add(editCoursePane, 0, 2);
         overallPane.add(outputPane, 1, 2);
 
+
+        try {
+            updateStudentFromDatabase();
+            updateCourseFromDatabase();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        if (courseArray.isEmpty() == false) {
+            for (int i = 0; i < courseArray.size(); i++) {
+                courseList.add(courseArray.get(i).getCourseName());
+                courseSpot++;
+            }
+        }
+        if (studentArray.isEmpty() == false) {
+            for (int i = 0; i < studentArray.size(); i++) {
+                studentList.add(studentArray.get(i).getFormatName());
+                studentSpot++;
+            }
+        }
+        if (instructorArray.isEmpty() == false) {
+            for (int i = 0; i < instructorArray.size(); i++) {
+                instructorList.add(instructorArray.get(i).instructorNameFormat());
+                instructorSpot++;
+            }
+        }
         Scene primaryScene = new Scene(overallPane, 1100, 500);
         primaryStage.setTitle("System Management System v0.4");
         primaryStage.setScene(primaryScene);
@@ -502,17 +528,57 @@ public class SMSApp_v4 extends Application {
         combInstructorList.setDisable(true);
     }
 
-    public void updateCourseFromDatabase() {
-        String SqlQuery = "Select count(COURSEID) from " + dataBaseUser + "." + courseTable;
+    public void updateCourseFromDatabase() throws SQLException {
+        String sqlQuery = "Select count(COURSEID) from " + dataBaseUser + "." + courseTable;
+        sendDBCommand(sqlQuery);
         int courseCount = 0;
-        try {
-            courseCount = dbResults.getInt(1);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        String name;
+        String building;
+        String room;
+        int roomCap;
+        courseCount = dbResults.getInt(1);
         for (int i = 0; i < courseCount; i++) {
-
+            sqlQuery = "SELECT * from " + dataBaseUser + "." + courseTable + " where COURSEID = " + i;
+            sendDBCommand(sqlQuery);
+            name = dbResults.getString(2);
+            building = dbResults.getString(3);
+            room = dbResults.getString(4);
+            roomCap = dbResults.getInt(5);
+            courseArray.add(new Course(name, building, room, roomCap));
         }
     }
 
+    public void updateStudentFromDatabase() throws SQLException {
+        String sqlQuery = "Select count(STUDENTID) from " + dataBaseUser + "." + studentTable;
+        sendDBCommand(sqlQuery);
+        int studentCount = 0;
+        String name;
+        int year;
+        String major;
+        double GPA;
+        String email;
+        studentCount = dbResults.getInt(1);
+        for (int i = 0; i < studentCount; i++) {
+            sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable + " where STUDENTID = " + (i + 1000);
+            sendDBCommand(sqlQuery);
+            //add data fields
+        }
+    }
+
+    public void updateInstructorFromDatabase() throws SQLException {
+        String sqlQuery = "Select count(INSTRID) from " + dataBaseUser + "." + instructorTable;
+        sendDBCommand(sqlQuery);
+        int instructorCount = 0;
+        String name;
+        String prefix;
+        String office;
+        String depart;
+        String email;
+        instructorCount = dbResults.getInt(1);
+        for (int i = 0; i < instructorCount; i++) {
+            sqlQuery = "SELECT * from " + dataBaseUser + "." + courseTable + " where INSTRID = " + (i + 100000);
+            sendDBCommand(sqlQuery);
+
+        }
+    }
 }//End of SMSAPP_v4()

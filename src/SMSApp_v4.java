@@ -379,6 +379,26 @@ public class SMSApp_v4 extends Application {
         txtInstructorEmail.clear();
     }
     
+        public void insertItem() // Insert student info into DB (Tanner)
+                //INCOMPLETE! THE SQL STRING SYNTAX IS INCORRECT.
+                //CANNOT ACCESS STUDENT ID
+                //STUDENT NAME NEEDS TO BE IN 2 sections
+                //CANNOT ACCESS STUDENT YEAR in VARCHAR format 
+    {
+        String sqlQuery = "INSERT INTO NBCIS331." + studentTable + 
+                " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
+                + " VALUES (";
+       // Need student ID here sqlQuery += "\'" + Student.getStudentID() + "\',";
+        sqlQuery += txtStudentName.getText() + ","; //Student name should be in two columns
+        //Need student YEAR here.
+        sqlQuery += txtStudentMajor.getText() + ",";
+        sqlQuery += txtStudentGPA.getText() + ",";
+        sqlQuery += txtStudentEmail.getText() + ")";
+        
+        //System.out.println(sqlQuery); 
+        sendDBCommand(sqlQuery);
+    }
+    
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
     {
         String sqlQuery = "SELECT * FROM SHENU." + studentTable; //This query can be build from text box outputs 

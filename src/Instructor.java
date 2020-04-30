@@ -73,6 +73,26 @@ public class Instructor {
         return this.prefix + " " + this.name;
     }
 
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getOfficeLocation() {
+        return officeLocation;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getInstructorID() {
+        return instructorID;
+    }
+
     public String toString() {
         String formattedString;
         formattedString = String.format("InstructorID: %-9s %nInstructor Name: %-2s %-20s %nDepartment: %-20s %nOffice: %-20s %nEmail: %-30s",

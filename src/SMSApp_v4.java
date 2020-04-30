@@ -391,7 +391,7 @@ public class SMSApp_v4 extends Application {
             while (dbResults.next())
             {
                 // Clear out the TextArea's previous contents
-                txtaOutput.clear();
+                outputBox.clear();
                 // Traverse the current row of the ResultSet object
                 // and extract each column, appending to our String
                 outputString += dbResults.getString(1) + "\t" //get contents from the first row of the result set object. First column is 1
@@ -400,12 +400,12 @@ public class SMSApp_v4 extends Application {
                         + dbResults.getString(4) + "\n";
                 
                 // Append the outputString to the TextArea's contents.
-                txtaOutput.appendText(outputString);
+                outputBox.appendText(outputString);
             }
         }
         catch (SQLException sqle)
         {
-            txtaOutput.setText(sqle.toString());
+            outputBox.setText(sqle.toString());
         }
         
     }

@@ -399,12 +399,8 @@ public class SMSApp_v4 extends Application {
         txtInstructorEmail.clear();
     }
 
-    public void insertStudent(Student newStudent) // Insert student info into DB (Tanner)
+    public void insertStudent(Student newStudent) // Insert student info into DB (Tanner & Cody)
     {
-        //INCOMPLETE! THE SQL STRING SYNTAX IS INCORRECT.
-        //CANNOT ACCESS STUDENT ID
-        //STUDENT NAME NEEDS TO BE IN 2 sections
-        //CANNOT ACCESS STUDENT YEAR in VARCHAR format 
         String sqlQuery = "INSERT INTO SHENU." + studentTable +
                 " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
                 + " VALUES (";
@@ -439,8 +435,11 @@ public class SMSApp_v4 extends Application {
                 // and extract each column, appending to our String
                 outputString += dbResults.getString(1) + "\t" //get contents from the first row of the result set object. First column is 1
                         + dbResults.getString(2) + "\t" 
-                        + dbResults.getString(3) + "\t"
-                        + dbResults.getString(4) + "\n";
+                        + dbResults.getString(3) + "\t" 
+                        + dbResults.getString(4) + "\t" 
+                        + dbResults.getString(5) + "\t" 
+                        + dbResults.getString(6) + "\t"
+                        + dbResults.getString(7) + "\n";
 
                 // Append the outputString to the TextArea's contents.
                 outputBox.appendText(outputString);

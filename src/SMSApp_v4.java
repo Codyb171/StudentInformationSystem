@@ -490,6 +490,20 @@ public class SMSApp_v4 extends Application {
         return courseID;
     }
 
+    public void setCourseInstructor() {
+        String instructorName = String.valueOf(combInstructorList.getValue());
+        int courseID = courseIDToEdit();
+        int instructorID = 1000000;
+        for (int i = 0; i < instructorArray.size(); i++) {
+            if (instructorArray.get(i).instructorNameFormat().equals(instructorName)) {
+                instructorID = instructorArray.get(i).getInstructorID();
+                instructorID -= 100000;
+                break;
+            }
+        }
+        courseArray.get(courseID).setCourseInstructor(instructorArray.get(instructorID));
+    }
+
     public void resetEditCourseForm() {
         addOrRemove.selectToggle(null);
         combStudentList.valueProperty().set(null);

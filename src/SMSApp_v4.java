@@ -417,9 +417,32 @@ public class SMSApp_v4 extends Application {
     }//End of showStudent()
 
     public void addStudentToCourse() {
+        int studentID = studentIDToEdit();
+        int courseID = courseIDToEdit();
+        studentID -= 1000;
+        courseArray.get(courseID).addStudent(studentArray.get(studentID));
+    }
+
+    public void removeStudentFromCourse() {
+        int studentID = studentIDToEdit();
+        int courseID = courseIDToEdit();
+        courseArray.get(courseID).removeStudent(studentID);
+    }
+
+    public int studentIDToEdit() {
         String studentName = String.valueOf(combStudentList.getValue());
-        String courseName = String.valueOf(combCourseList.getValue());
         int studentID = 1000000000;
+        for (int s = 0; s < studentArray.size(); s++) {
+            if (studentArray.get(s).getFormatName().equals(studentName)) {
+                studentID = studentArray.get(s).getStudentID();
+                break;
+            }
+        }
+        return studentID;
+    }
+
+    public int courseIDToEdit() {
+        String courseName = String.valueOf(combCourseList.getValue());
         int courseID = 1000000000;
         for (int i = 0; i < courseArray.size(); i++) {
             if (courseArray.get(i).getCourseName().equals(courseName)) {
@@ -427,14 +450,7 @@ public class SMSApp_v4 extends Application {
                 break;
             }
         }
-        for (int s = 0; s < studentArray.size(); s++) {
-            if (studentArray.get(s).getFormatName().equals(studentName)) {
-                studentID = studentArray.get(s).getStudentID();
-                studentID -= 1000;
-                break;
-            }
-        }
-        courseArray.get(courseID).addStudent(studentArray.get(studentID));
+        return courseID;
     }
 
     public void resetEditCourseForm() {

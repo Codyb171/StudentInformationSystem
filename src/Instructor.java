@@ -69,6 +69,10 @@ public class Instructor {
         return name;
     }
 
+    public String instructorNameFormat() {
+        return this.prefix + " " + this.name;
+    }
+
     public String toString() {
         String formattedString;
         formattedString = String.format("InstructorID: %-9s %nInstructor Name: %-2s %-20s %nDepartment: %-20s %nOffice: %-20s %nEmail: %-30s",

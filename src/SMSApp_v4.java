@@ -92,6 +92,7 @@ public class SMSApp_v4 extends Application {
     CheckBox checkInstructor = new CheckBox("New Instructor?");
     Label lblInstructorWho = new Label("Instructor is:");
     ComboBox combInstructorList = new ComboBox(instructorList);
+    Button butCourseEdit = new Button("Run Changes");
     TextArea outputBox = new TextArea();
     public static int courseSpot = 0;
     public static int studentSpot = 0;
@@ -186,6 +187,7 @@ public class SMSApp_v4 extends Application {
         editCoursePane.add(lblInstructorWho, 0, 6);
         editCoursePane.add(combInstructorList, 1, 6);
         combInstructorList.setDisable(true);
+        editCoursePane.add(butCourseEdit, 1, 7);
         //Edit the outputPane
         outputPane.setAlignment(Pos.CENTER);
         outputBox.setMaxWidth(500);
@@ -222,7 +224,14 @@ public class SMSApp_v4 extends Application {
             studentList.add(studentArray.get(studentSpot).getFormatName());
             studentSpot++;
         });
+        rdoAddInstructor.setOnAction(e -> {
+            createInstructor();
+            clearInstructorForm();
+            instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
+            instructorSpot++;
+        });
     }
+
 
     public static void main(String[] args) {
         launch(args);
@@ -346,4 +355,20 @@ public class SMSApp_v4 extends Application {
         txtCourseCapacity.clear();
     }
 
+    public void createInstructor() {
+        String name = txtInstructorName.getText();
+        String prefix = String.valueOf(combInstructorPrefix.getValue());
+        String office = txtInstructorOffice.getText();
+        String depart = txtInstructorDepartment.getText();
+        String email = checkEmail(txtInstructorEmail.getText());
+        instructorArray.add(new Instructor(name, prefix, office, depart, email));
+    }
+
+    public void clearInstructorForm() {
+        txtInstructorName.clear();
+        combInstructorPrefix.valueProperty().set(null);
+        txtInstructorOffice.clear();
+        txtInstructorDepartment.clear();
+        txtInstructorEmail.clear();
+    }
 }

@@ -237,6 +237,7 @@ public class SMSApp_v4 extends Application {
             instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
+         
     }// END OF START() 
 
 
@@ -378,7 +379,7 @@ public class SMSApp_v4 extends Application {
         txtInstructorEmail.clear();
     }
     
-    public void showStudent()
+    public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
     {
         String sqlQuery = "SELECT * FROM SHENU." + studentTable; //This query can be build from text box outputs 
         sendDBCommand(sqlQuery);

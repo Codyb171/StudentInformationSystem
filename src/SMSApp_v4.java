@@ -446,7 +446,9 @@ public class SMSApp_v4 extends Application {
         sqlQuery += "'" + newCourse.getBuilding() + "',";
         sqlQuery += "'" + newCourse.getRoomNbr() + "',";
         sqlQuery += "'" + newCourse.getCourseCapacity() + "',";
-        sqlQuery += "'" + newCourse
+        sqlQuery += "'" + "" + "')";
+        
+        sendDBCommand(sqlQuery);
     }
     
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 

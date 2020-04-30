@@ -423,15 +423,30 @@ public class SMSApp_v4 extends Application {
     public void insertInstructor(Instructor newInstructor)
     {
         String sqlQuery = "INSERT INTO" + dataBaseUser + "." + instructorTable +
-                " (INSTRUCTORID, INSTRUCTORNAME, INSTRUCTORPREFIX, INSTRUCTOROFFICE, INSTRUCTORDEPARTMENT, INSTRUCTOREMAIL)"
+                " (INSTRID, INSTRNAME, INSTRPREFIX, INSTROFFICE, INSTRDEPT, INSTREMAIL)"
                 + " VALUES (";
-        sqlQuery = newInstructor.getInstructorID() + ",";
-        sqlQuery = newInstructor.getName() + ",";
-        sqlQuery = newInstructor.getPrefix() + ",";
-        sqlQuery = newInstructor.getOfficeLocation() + ",";
-        sqlQuery = newInstructor.getDepartment() + ",";
-        sqlQuery = newInstructor.getEmail() + "')";
+        sqlQuery += newInstructor.getInstructorID() + ",";
+        sqlQuery += "'" + newInstructor.getName() + "',";
+        sqlQuery += "'" + newInstructor.getPrefix() + "',";
+        sqlQuery += "'" + newInstructor.getOfficeLocation() + "',";
+        sqlQuery += "'" + newInstructor.getDepartment() + "',";
+        sqlQuery += "'" + newInstructor.getEmail() + "')";
         
+        sendDBCommand(sqlQuery);
+        
+    }
+    
+    public void insertCourse(Course newCourse)
+    {
+        String sqlQuery = "INSERT INTO" + dataBaseUser + "." + courseTable + 
+                " (COURSEID, COURSENAME, COURSEBLDG, COURSEROOM, COURSECAPACITY, COURSEINSTRUCTOR)"
+                + " VALUES (";
+        sqlQuery += newCourse.getCourseID() + ",";
+        sqlQuery += "'" + newCourse.getCourseName() + "',";
+        sqlQuery += "'" + newCourse.getBuilding() + "',";
+        sqlQuery += "'" + newCourse.getRoomNbr() + "',";
+        sqlQuery += "'" + newCourse.getCourseCapacity() + "',";
+        sqlQuery += "'" + newCourse
     }
     
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 

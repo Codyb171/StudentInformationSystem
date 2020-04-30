@@ -110,7 +110,11 @@ public class SMSApp_v4 extends Application {
     ResultSet dbResults;
 
 
-    //Declaring Database table name variables (Tanner)
+    //Declaring MASTER Database User, Password (Tanner)
+    String dataBaseUser = "shenu"; //THESE ARE CASE SENSITIVE!!!!
+    String dataBasePassWord = "shenu";//THESE ARE CASE SENSITIVE!!!!
+    
+    //Declaring MASTER Table name variables (Tanner)
     String studentTable = "STUDENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
     String instructorTable = "INSTRUCTOR"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
     String courseTable = "COURSE"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
@@ -256,7 +260,7 @@ public class SMSApp_v4 extends Application {
 
     }// END OF START()
 
-
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -266,8 +270,8 @@ public class SMSApp_v4 extends Application {
         // Set up your connection strings
         // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
         String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-        String userID = "shenu"; // Change to YOUR Oracle username
-        String userPASS = "shenu"; // Change to YOUR Oracle password
+        String userID = dataBaseUser; // Change to YOUR Oracle username
+        String userPASS = dataBasePassWord; // Change to YOUR Oracle password
         OracleDataSource ds;
 
         // Clear Box Testing - Print each query to check SQL syntax
@@ -401,7 +405,7 @@ public class SMSApp_v4 extends Application {
 
     public void insertStudent(Student newStudent) // Insert student info into DB (Tanner & Cody)
     {
-        String sqlQuery = "INSERT INTO SHENU." + studentTable +
+        String sqlQuery = "INSERT INTO" + dataBaseUser +"."+ studentTable +
                 " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL)"
                 + " VALUES (";
         sqlQuery += newStudent.getStudentID() + ",";
@@ -418,7 +422,7 @@ public class SMSApp_v4 extends Application {
     
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
     {
-        String sqlQuery = "SELECT * FROM SHENU." + studentTable; //This query can be build from text box outputs 
+        String sqlQuery = "SELECT * FROM " + dataBaseUser +"." + studentTable; //This query can be build from text box outputs 
         sendDBCommand(sqlQuery);
         
         String outputString = "";

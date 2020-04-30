@@ -227,6 +227,7 @@ public class SMSApp_v4 extends Application {
         rdoAddStudent.setOnAction(e -> {
             createStudent();
             clearStudentForm();
+            insertStudent(studentArray.get(studentSpot));
             showStudent();
             studentList.add(studentArray.get(studentSpot).getFormatName());
             studentSpot++;
@@ -398,7 +399,7 @@ public class SMSApp_v4 extends Application {
         txtInstructorEmail.clear();
     }
 
-    public void insertItem(Student newStudent) // Insert student info into DB (Tanner)
+    public void insertStudent(Student newStudent) // Insert student info into DB (Tanner)
     {
         //INCOMPLETE! THE SQL STRING SYNTAX IS INCORRECT.
         //CANNOT ACCESS STUDENT ID

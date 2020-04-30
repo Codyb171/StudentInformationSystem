@@ -402,7 +402,7 @@ public class SMSApp_v4 extends Application {
     public void insertStudent(Student newStudent) // Insert student info into DB (Tanner & Cody)
     {
         String sqlQuery = "INSERT INTO SHENU." + studentTable +
-                " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
+                " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL)"
                 + " VALUES (";
         sqlQuery += newStudent.getStudentID() + ",";
         sqlQuery += "'" + newStudent.getFirstName() + "',";

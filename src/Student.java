@@ -131,6 +131,10 @@ public class Student {
         studentMajor = major;
     }
 
+    public String getStudentEmail() {
+        return studentEmail;
+    }
+
     public String getFormatName() {
         return this.lastName + ", " + this.firstName;
     }

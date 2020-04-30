@@ -8,8 +8,6 @@
 // Use MenuOrder example as reference
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -239,11 +237,8 @@ public class SMSApp_v4 extends Application {
             instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
-        addOrRemove.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
-                combStudentList.setDisable(printRoster.isSelected());
-            }
-        });
+        addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
+                -> combStudentList.setDisable(printRoster.isSelected()));
         butCourseEdit.setOnAction(e -> {
             if (togAddStudent.isSelected()) {
                 addStudentToCourse();
@@ -288,9 +283,9 @@ public class SMSApp_v4 extends Application {
                 // Send the user/pass and get an open connection.
                 dbConn = ds.getConnection(userID,userPASS);
                 // When we get results
-                //  -TYPE_SCROLL_SENSITIVE means if the database data changes we
-                //   will see our resultset update in real time.
-                //  -CONCUR_READ_ONLY means that we cannot accidentally change the
+            //  -TYPE_SCROLL_SENSITIVE means if the database data changes we
+            //   will see our result set update in real time.
+            //  -CONCUR_READ_ONLY means that we cannot accidentally change the
                 //   data in our database by using the .update____() methods of
                 //   the ResultSet class - TableView controls are impacted by
                 //   this setting as well.
@@ -298,7 +293,7 @@ public class SMSApp_v4 extends Application {
             // We send the query to the DB. A ResultSet object is instantiated
             //  and we are returned a reference to it, that we point to from
             // dbResults.
-            // Because we declared dbResults at the datafield level
+            // Because we declared dbResults at the data field level
             // we can see the results from anywhere in our Class.
             dbResults = commStmt.executeQuery(sqlQuery); // Sends the Query to the DB
             // The results are stored in a ResultSet structure object
@@ -344,17 +339,21 @@ public class SMSApp_v4 extends Application {
 
     public int checkYear(Object value) {
         String year = String.valueOf(value);
-        year.toLowerCase();
         year = year.substring(0, 2);
         int grade = 0;
-        if (year.equals("fr")) {
-            grade = 1;
-        } else if (year.equals("so")) {
-            grade = 2;
-        } else if (year.equals("ju")) {
-            grade = 3;
-        } else if (year.equals("se")) {
-            grade = 4;
+        switch (year) {
+            case "fr":
+                grade = 1;
+                break;
+            case "so":
+                grade = 2;
+                break;
+            case "ju":
+                grade = 3;
+                break;
+            case "se":
+                grade = 4;
+                break;
         }
         return grade;
     }
@@ -398,26 +397,27 @@ public class SMSApp_v4 extends Application {
         txtInstructorDepartment.clear();
         txtInstructorEmail.clear();
     }
-    
-        public void insertItem() // Insert student info into DB (Tanner)
-        {
-         //INCOMPLETE! THE SQL STRING SYNTAX IS INCORRECT.
+
+    public void insertItem(Student newStudent) // Insert student info into DB (Tanner)
+    {
+        //INCOMPLETE! THE SQL STRING SYNTAX IS INCORRECT.
         //CANNOT ACCESS STUDENT ID
         //STUDENT NAME NEEDS TO BE IN 2 sections
         //CANNOT ACCESS STUDENT YEAR in VARCHAR format 
-                String sqlQuery = "INSERT INTO NBCIS331." + studentTable + 
-                        " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
-                        + " VALUES (";
-               // Need student ID here sqlQuery += "\'" + Student.getStudentID() + "\',";
-                sqlQuery += txtStudentName.getText() + ","; //Student name should be in two columns
-                //Need student YEAR here.
-                sqlQuery += txtStudentMajor.getText() + ",";
-                sqlQuery += txtStudentGPA.getText() + ",";
-                sqlQuery += txtStudentEmail.getText() + ")";
+        String sqlQuery = "INSERT INTO SHENU." + studentTable +
+                " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
+                + " VALUES (";
+        sqlQuery += newStudent.getStudentID() + ",";
+        sqlQuery += "'" + newStudent.getFirstName() + "',";
+        sqlQuery += "'" + newStudent.getLastName() + "',";
+        sqlQuery += "'" + newStudent.getStudentYear() + "',";
+        sqlQuery += "'" + newStudent.getStudentMajor() + "',";
+        sqlQuery += newStudent.getGPA() + ",";
+        sqlQuery += "'" + newStudent.getStudentEmail() + "')";
 
-                //System.out.println(sqlQuery); 
-                sendDBCommand(sqlQuery);
-           }
+        //System.out.println(sqlQuery);
+        sendDBCommand(sqlQuery);
+    }
     
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
     {

@@ -270,8 +270,8 @@ public class SMSApp_v4 extends Application {
         // Set up your connection strings
         // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
         String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-        String userID = dataBaseUser; // Change to YOUR Oracle username
-        String userPASS = dataBasePassWord; // Change to YOUR Oracle password
+        String userID = "system"; // Change to YOUR Oracle username
+        String userPASS = "Blasters28"; // Change to YOUR Oracle password
         OracleDataSource ds;
 
         // Clear Box Testing - Print each query to check SQL syntax
@@ -419,6 +419,8 @@ public class SMSApp_v4 extends Application {
         //System.out.println(sqlQuery);
         sendDBCommand(sqlQuery);
     }
+    
+    public void insertInstructor(Instructor newInstructor)
     
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
     {

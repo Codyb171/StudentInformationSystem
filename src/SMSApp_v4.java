@@ -8,6 +8,8 @@
 // Use MenuOrder example as reference
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -92,7 +94,7 @@ public class SMSApp_v4 extends Application {
     CheckBox checkInstructor = new CheckBox("New Instructor?");
     Label lblInstructorWho = new Label("Instructor is:");
     ComboBox combInstructorList = new ComboBox(instructorList);
-    Button butCourseEdit = new Button("Run Changes");
+    Button butCourseEdit = new Button("Execute?");
     TextArea outputBox = new TextArea();
     public static int courseSpot = 0;
     public static int studentSpot = 0;
@@ -111,10 +113,10 @@ public class SMSApp_v4 extends Application {
 
 
     //Declaring Database table name variables (Tanner)
-        String studentTable = "STUDENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
-        String instructorTable = "INSTRUCTOR"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
-        String courseTable = "COURSE"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
-        String studentEnrollmentTable = "STUDENTENROLLMENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
+    String studentTable = "STUDENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
+    String instructorTable = "INSTRUCTOR"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
+    String courseTable = "COURSE"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
+    String studentEnrollmentTable = "STUDENTENROLLMENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
 
     @Override
     public void start(Stage primaryStage) {
@@ -214,7 +216,7 @@ public class SMSApp_v4 extends Application {
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 
-        //Lambda controls for the buttons 
+        //Lambda controls for the buttons
         checkInstructor.setOnAction(e -> {
             combInstructorList.setDisable(checkInstructor.isSelected() != true);
         });
@@ -237,8 +239,26 @@ public class SMSApp_v4 extends Application {
             instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
-         
-    }// END OF START() 
+        addOrRemove.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                combStudentList.setDisable(printRoster.isSelected());
+            }
+        });
+        butCourseEdit.setOnAction(e -> {
+            if (togAddStudent.isSelected()) {
+                addStudentToCourse();
+                resetEditCourseForm();
+            }
+            if (togRemoveStudent.isSelected()) {
+                removeStudentFromCourse();
+                resetEditCourseForm();
+            }
+            if (printRoster.isSelected()) {
+                //add roster stuff
+            }
+        });
+
+    }// END OF START()
 
 
     public static void main(String[] args) {
@@ -380,24 +400,24 @@ public class SMSApp_v4 extends Application {
     }
     
         public void insertItem() // Insert student info into DB (Tanner)
-                //INCOMPLETE! THE SQL STRING SYNTAX IS INCORRECT.
-                //CANNOT ACCESS STUDENT ID
-                //STUDENT NAME NEEDS TO BE IN 2 sections
-                //CANNOT ACCESS STUDENT YEAR in VARCHAR format 
-    {
-        String sqlQuery = "INSERT INTO NBCIS331." + studentTable + 
-                " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
-                + " VALUES (";
-       // Need student ID here sqlQuery += "\'" + Student.getStudentID() + "\',";
-        sqlQuery += txtStudentName.getText() + ","; //Student name should be in two columns
-        //Need student YEAR here.
-        sqlQuery += txtStudentMajor.getText() + ",";
-        sqlQuery += txtStudentGPA.getText() + ",";
-        sqlQuery += txtStudentEmail.getText() + ")";
-        
-        //System.out.println(sqlQuery); 
-        sendDBCommand(sqlQuery);
-    }
+        {
+         //INCOMPLETE! THE SQL STRING SYNTAX IS INCORRECT.
+        //CANNOT ACCESS STUDENT ID
+        //STUDENT NAME NEEDS TO BE IN 2 sections
+        //CANNOT ACCESS STUDENT YEAR in VARCHAR format 
+                String sqlQuery = "INSERT INTO NBCIS331." + studentTable + 
+                        " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
+                        + " VALUES (";
+               // Need student ID here sqlQuery += "\'" + Student.getStudentID() + "\',";
+                sqlQuery += txtStudentName.getText() + ","; //Student name should be in two columns
+                //Need student YEAR here.
+                sqlQuery += txtStudentMajor.getText() + ",";
+                sqlQuery += txtStudentGPA.getText() + ",";
+                sqlQuery += txtStudentEmail.getText() + ")";
+
+                //System.out.println(sqlQuery); 
+                sendDBCommand(sqlQuery);
+           }
     
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
     {
@@ -420,16 +440,58 @@ public class SMSApp_v4 extends Application {
                         + dbResults.getString(2) + "\t" 
                         + dbResults.getString(3) + "\t"
                         + dbResults.getString(4) + "\n";
-                
+
                 // Append the outputString to the TextArea's contents.
                 outputBox.appendText(outputString);
             }
-        }
-        catch (SQLException sqle)
-        {
+        } catch (SQLException sqle) {
             outputBox.setText(sqle.toString());
         }
     }//End of showStudent()
-    
-    
+
+    public void addStudentToCourse() {
+        int studentID = studentIDToEdit();
+        int courseID = courseIDToEdit();
+        studentID -= 1000;
+        courseArray.get(courseID).addStudent(studentArray.get(studentID));
+    }
+
+    public void removeStudentFromCourse() {
+        int studentID = studentIDToEdit();
+        int courseID = courseIDToEdit();
+        courseArray.get(courseID).removeStudent(studentID);
+    }
+
+    public int studentIDToEdit() {
+        String studentName = String.valueOf(combStudentList.getValue());
+        int studentID = 1000000000;
+        for (int s = 0; s < studentArray.size(); s++) {
+            if (studentArray.get(s).getFormatName().equals(studentName)) {
+                studentID = studentArray.get(s).getStudentID();
+                break;
+            }
+        }
+        return studentID;
+    }
+
+    public int courseIDToEdit() {
+        String courseName = String.valueOf(combCourseList.getValue());
+        int courseID = 1000000000;
+        for (int i = 0; i < courseArray.size(); i++) {
+            if (courseArray.get(i).getCourseName().equals(courseName)) {
+                courseID = courseArray.get(i).getCourseID();
+                break;
+            }
+        }
+        return courseID;
+    }
+
+    public void resetEditCourseForm() {
+        addOrRemove.selectToggle(null);
+        combStudentList.valueProperty().set(null);
+        combCourseList.valueProperty().set(null);
+        checkInstructor.setSelected(false);
+        combInstructorList.valueProperty().set(null);
+        combInstructorList.setDisable(true);
+    }
 }//End of SMSAPP_v4()

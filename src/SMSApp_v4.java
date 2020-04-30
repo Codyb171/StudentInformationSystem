@@ -105,15 +105,18 @@ public class SMSApp_v4 extends Application {
     public static ArrayList<Student> studentArray = new ArrayList<>();
     public static ArrayList<Course> courseArray = new ArrayList<>();
     public static ArrayList<Instructor> instructorArray = new ArrayList<>();
-    Connection dbConn;
-    Statement commStmt;
-    ResultSet dbResults;
+    public Connection dbConn;
+    public Statement commStmt;
+    public ResultSet dbResults;
+    public String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+    public OracleDataSource ds;
+    // Where is the database located? Web? Local?
 
 
     //Declaring MASTER Database User, Password (Tanner)
     String dataBaseUser = "shenu"; //THESE ARE CASE SENSITIVE!!!!
     String dataBasePassWord = "shenu";//THESE ARE CASE SENSITIVE!!!!
-    
+
     //Declaring MASTER Table name variables (Tanner)
     String studentTable = "STUDENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
     String instructorTable = "INSTRUCTOR"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
@@ -260,51 +263,19 @@ public class SMSApp_v4 extends Application {
 
     }// END OF START()
 
-    
+
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void sendDBCommand(String sqlQuery) {//DATABASE BRIDGE NETBEANS FREE FROM DR.EZELL - Refer to InventoryUI Example.
-
-        // Set up your connection strings
-        // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
-        String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-        String userID = dataBaseUser; // Change to YOUR Oracle username
-        String userPASS = dataBasePassWord; // Change to YOUR Oracle password
-        OracleDataSource ds;
-
-        // Clear Box Testing - Print each query to check SQL syntax
-        //  sent to this method.
-        // You can comment this line out when your program is finished
-        System.out.println(sqlQuery);
-
-        // Lets try to connect
+    public void sendDBCommand(String sqlQuery) {
         try {
             // instantiate a new data source object
             ds = new OracleDataSource();
-            // Where is the database located? Web? Local?
             ds.setURL(URL);
-                // Send the user/pass and get an open connection.
-                dbConn = ds.getConnection(userID,userPASS);
-                // When we get results
-            //  -TYPE_SCROLL_SENSITIVE means if the database data changes we
-            //   will see our result set update in real time.
-            //  -CONCUR_READ_ONLY means that we cannot accidentally change the
-                //   data in our database by using the .update____() methods of
-                //   the ResultSet class - TableView controls are impacted by
-                //   this setting as well.
-                commStmt = dbConn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            // We send the query to the DB. A ResultSet object is instantiated
-            //  and we are returned a reference to it, that we point to from
-            // dbResults.
-            // Because we declared dbResults at the data field level
-            // we can see the results from anywhere in our Class.
-            dbResults = commStmt.executeQuery(sqlQuery); // Sends the Query to the DB
-            // The results are stored in a ResultSet structure object
-            // pointed to by the reference variable dbResults
-            // Because we declared this variable globally above, we can use
-            // the results in any method in the class.
+            dbConn = ds.getConnection(dataBaseUser, dataBasePassWord);
+            commStmt = dbConn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            dbResults = commStmt.executeQuery(sqlQuery);
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
@@ -405,7 +376,7 @@ public class SMSApp_v4 extends Application {
 
     public void insertStudent(Student newStudent) // Insert student info into DB (Tanner & Cody)
     {
-        String sqlQuery = "INSERT INTO" + dataBaseUser +"."+ studentTable +
+        String sqlQuery = "INSERT INTO " + dataBaseUser + "." + studentTable +
                 " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL)"
                 + " VALUES (";
         sqlQuery += newStudent.getStudentID() + ",";
@@ -422,7 +393,7 @@ public class SMSApp_v4 extends Application {
     
     public void insertInstructor(Instructor newInstructor)
     {
-        String sqlQuery = "INSERT INTO" + dataBaseUser + "." + instructorTable +
+        String sqlQuery = "INSERT INTO " + dataBaseUser + "." + instructorTable +
                 " (INSTRUCTORID, INSTRUCTORNAME, INSTRUCTORPREFIX, INSTRUCTOROFFICE, INSTRUCTORDEPARTMENT, INSTRUCTOREMAIL)"
                 + " VALUES (";
         sqlQuery += newInstructor.getInstructorID() + ",";
@@ -434,15 +405,14 @@ public class SMSApp_v4 extends Application {
 
         sendDBCommand(sqlQuery);
     }
-    
-    public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
+
+    public void showStudent() // NEEDS INFORMATION IN DATABASE TO REFERENCE.
     {
-        String sqlQuery = "SELECT * FROM " + dataBaseUser +"." + studentTable; //This query can be build from text box outputs 
+        String sqlQuery = "SELECT * FROM " + dataBaseUser + "." + studentTable; //This query can be build from text box outputs
         sendDBCommand(sqlQuery);
-        
+
         String outputString = "";
-        try
-        {
+        try {
             // While there is more rows of results from the SELECT
             // query, loop on each row (.next() moves to the next
             // row each time its called)
@@ -534,8 +504,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public void updateCourseFromDatabase() {
-
-        int courseCount = 1;
+        int courseCount = 0;
         for (int i = 0; i < courseCount; i++) {
 
         }

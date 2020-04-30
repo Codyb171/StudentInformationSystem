@@ -405,7 +405,7 @@ public class SMSApp_v4 extends Application {
         //CANNOT ACCESS STUDENT ID
         //STUDENT NAME NEEDS TO BE IN 2 sections
         //CANNOT ACCESS STUDENT YEAR in VARCHAR format 
-                String sqlQuery = "INSERT INTO NBCIS331." + studentTable + 
+                String sqlQuery = "INSERT INTO SHENU." + studentTable + 
                         " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL) "
                         + " VALUES (";
                // Need student ID here sqlQuery += "\'" + Student.getStudentID() + "\',";

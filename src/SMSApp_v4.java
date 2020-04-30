@@ -110,7 +110,6 @@ public class SMSApp_v4 extends Application {
     public ResultSet dbResults;
     public String URL = "jdbc:oracle:thin:@localhost:1521:XE";
     public OracleDataSource ds;
-    // Where is the database located? Web? Local?
 
 
     //Declaring MASTER Database User, Password (Tanner)
@@ -504,7 +503,13 @@ public class SMSApp_v4 extends Application {
     }
 
     public void updateCourseFromDatabase() {
+        String SqlQuery = "Select count(COURSEID) from " + dataBaseUser + "." + courseTable;
         int courseCount = 0;
+        try {
+            courseCount = dbResults.getInt(1);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         for (int i = 0; i < courseCount; i++) {
 
         }

@@ -110,6 +110,12 @@ public class SMSApp_v4 extends Application {
     ResultSet dbResults;
 
 
+    //Declaring Database table name variables (Tanner)
+        String studentTable = "STUDENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
+        String instructorTable = "INSTRUCTOR"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
+        String courseTable = "COURSE"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
+        String studentEnrollmentTable = "STUDENTENROLLMENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN 
+
     @Override
     public void start(Stage primaryStage) {
         // first we assign the Add and remove student buttons into a group to ensure they work properly
@@ -369,5 +375,38 @@ public class SMSApp_v4 extends Application {
         txtInstructorOffice.clear();
         txtInstructorDepartment.clear();
         txtInstructorEmail.clear();
+    }
+    
+    public void showStudent()
+    {
+        String sqlQuery = "SELECT * FROM SHENU." + studentTable; //This query can be build from text box outputs 
+        sendDBCommand(sqlQuery);
+        
+        String outputString = "";
+        try
+        {
+            // While there is more rows of results from the SELECT
+            // query, loop on each row (.next() moves to the next
+            // row each time its called)
+            while (dbResults.next())
+            {
+                // Clear out the TextArea's previous contents
+                txtaOutput.clear();
+                // Traverse the current row of the ResultSet object
+                // and extract each column, appending to our String
+                outputString += dbResults.getString(1) + "\t" //get contents from the first row of the result set object. First column is 1
+                        + dbResults.getString(2) + "\t" 
+                        + dbResults.getString(3) + "\t"
+                        + dbResults.getString(4) + "\n";
+                
+                // Append the outputString to the TextArea's contents.
+                txtaOutput.appendText(outputString);
+            }
+        }
+        catch (SQLException sqle)
+        {
+            txtaOutput.setText(sqle.toString());
+        }
+        
     }
 }

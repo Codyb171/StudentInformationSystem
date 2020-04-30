@@ -270,8 +270,8 @@ public class SMSApp_v4 extends Application {
         // Set up your connection strings
         // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
         String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-        String userID = "system"; // Change to YOUR Oracle username
-        String userPASS = "Blasters28"; // Change to YOUR Oracle password
+        String userID = "shenu"; // Change to YOUR Oracle username
+        String userPASS = "shenu"; // Change to YOUR Oracle password
         OracleDataSource ds;
 
         // Clear Box Testing - Print each query to check SQL syntax
@@ -421,6 +421,18 @@ public class SMSApp_v4 extends Application {
     }
     
     public void insertInstructor(Instructor newInstructor)
+    {
+        String sqlQuery = "INSERT INTO" + dataBaseUser + "." + instructorTable +
+                " (INSTRUCTORID, INSTRUCTORNAME, INSTRUCTORPREFIX, INSTRUCTOROFFICE, INSTRUCTORDEPARTMENT, INSTRUCTOREMAIL)"
+                + " VALUES (";
+        sqlQuery = newInstructor.getInstructorID() + ",";
+        sqlQuery = newInstructor.getName() + ",";
+        sqlQuery = newInstructor.getPrefix() + ",";
+        sqlQuery = newInstructor.getOfficeLocation() + ",";
+        sqlQuery = newInstructor.getDepartment() + ",";
+        sqlQuery = newInstructor.getEmail() + "')";
+        
+    }
     
     public void showStudent() // NEEDS INFORMATION IN DATABSE TO REFERENCE. 
     {

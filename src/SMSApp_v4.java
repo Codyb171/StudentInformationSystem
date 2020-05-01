@@ -1,6 +1,6 @@
 // Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
 // Dr. Ezell | CIS 331
-// Purpose: Main Method for the Applicaiton
+// Purpose: Main Method for the Application
 //  Link to JMU OneDrive: https://dukesjmuedu-my.sharepoint.com/:f:/g/personal/elpheeti_dukes_jmu_edu/Er7HS_yJyotJnm-GCDn661sBVS7mJo0PJ3uKvEESinPfwA?e=t1WDck
 //Please connect to database SHENU to work with this application. See OneDrive for details.
 //Please make sure you get the new ddl for the database and drop all your old tables
@@ -129,7 +129,6 @@ public class SMSApp_v4 extends Application {
         togAddStudent.setToggleGroup(addOrRemove);
         togRemoveStudent.setToggleGroup(addOrRemove);
         printRoster.setToggleGroup(addOrRemove);
-        studentList.clear();
         //Create Panes for control layout
         GridPane addStudentPane = new GridPane();
         GridPane addCoursePane = new GridPane();
@@ -268,21 +267,21 @@ public class SMSApp_v4 extends Application {
             createCourse();
             clearCourseForm();
             insertCourse(courseArray.get(courseSpot));
-            courseList.add(courseArray.get(courseSpot).getCourseName());
+            courseList.add(courseSpot, courseArray.get(courseSpot).getCourseName());
             courseSpot++;
         });
         rdoAddStudent.setOnAction(e -> {
             createStudent();
             clearStudentForm();
             insertStudent(studentArray.get(studentSpot));
-            studentList.add(studentArray.get(studentSpot).getFormatName());
+            studentList.add(studentSpot, studentArray.get(studentSpot).getFormatName());
             studentSpot++;
         });
         rdoAddInstructor.setOnAction(e -> {
             createInstructor();
             clearInstructorForm();
             insertInstructor(instructorArray.get(instructorSpot));
-            instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
+            instructorList.add(instructorSpot, instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)

@@ -1,6 +1,6 @@
 // Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
 // Dr. Ezell | CIS 331
-// Purpose: Main Method for the Applicaiton 
+// Purpose: Main Method for the Applicaiton
 //  Link to JMU OneDrive: https://dukesjmuedu-my.sharepoint.com/:f:/g/personal/elpheeti_dukes_jmu_edu/Er7HS_yJyotJnm-GCDn661sBVS7mJo0PJ3uKvEESinPfwA?e=t1WDck
 //Please connect to database SHENU to work with this application. See OneDrive for details.
 //Please make sure you get the new ddl for the database and drop all your old tables
@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 
+@SuppressWarnings("ALL")
 public class SMSApp_v4 extends Application {
 
     //Controls for only student, course, and instructor
@@ -128,7 +129,7 @@ public class SMSApp_v4 extends Application {
         togAddStudent.setToggleGroup(addOrRemove);
         togRemoveStudent.setToggleGroup(addOrRemove);
         printRoster.setToggleGroup(addOrRemove);
-
+        studentList.clear();
         //Create Panes for control layout
         GridPane addStudentPane = new GridPane();
         GridPane addCoursePane = new GridPane();
@@ -218,26 +219,39 @@ public class SMSApp_v4 extends Application {
 
         try {
             updateStudentFromDatabase();
+        } catch (SQLException throwables) {
+            System.out.println("no Students in Database");
+        }
+        try {
+            updateInstructorFromDatabase();
+        } catch (SQLException throwables) {
+            System.out.println("no Instructors in Database");
+        }
+        try {
             updateCourseFromDatabase();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println("no Courses in Database");
         }
-
-        if (courseArray.isEmpty() == false) {
-            for (int i = 0; i < courseArray.size(); i++) {
-                courseList.add(courseArray.get(i).getCourseName());
+        try {
+            updateEnrollmentFromDatabase();
+        } catch (SQLException throwables) {
+            System.out.println("no enrollments in Database");
+        }
+        if (!courseArray.isEmpty()) {
+            for (Course course : courseArray) {
+                courseList.add(course.getCourseName());
                 courseSpot++;
             }
         }
-        if (studentArray.isEmpty() == false) {
-            for (int i = 0; i < studentArray.size(); i++) {
-                studentList.add(studentArray.get(i).getFormatName());
+        if (!studentArray.isEmpty()) {
+            for (Student student : studentArray) {
+                studentList.add(student.getFormatName());
                 studentSpot++;
             }
         }
-        if (instructorArray.isEmpty() == false) {
-            for (int i = 0; i < instructorArray.size(); i++) {
-                instructorList.add(instructorArray.get(i).instructorNameFormat());
+        if (!instructorArray.isEmpty()) {
+            for (Instructor instructor : instructorArray) {
+                instructorList.add(instructor.instructorNameFormat());
                 instructorSpot++;
             }
         }
@@ -248,11 +262,12 @@ public class SMSApp_v4 extends Application {
 
         //Lambda controls for the buttons
         checkInstructor.setOnAction(e -> {
-            combInstructorList.setDisable(checkInstructor.isSelected() != true);
+            combInstructorList.setDisable(!checkInstructor.isSelected());
         });
         rdoAddCourse.setOnAction(e -> {
             createCourse();
             clearCourseForm();
+            insertCourse(courseArray.get(courseSpot));
             courseList.add(courseArray.get(courseSpot).getCourseName());
             courseSpot++;
         });
@@ -260,29 +275,35 @@ public class SMSApp_v4 extends Application {
             createStudent();
             clearStudentForm();
             insertStudent(studentArray.get(studentSpot));
-            showStudent();
             studentList.add(studentArray.get(studentSpot).getFormatName());
             studentSpot++;
         });
         rdoAddInstructor.setOnAction(e -> {
             createInstructor();
             clearInstructorForm();
+            insertInstructor(instructorArray.get(instructorSpot));
             instructorList.add(instructorArray.get(instructorSpot).instructorNameFormat());
             instructorSpot++;
         });
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
                 -> combStudentList.setDisable(printRoster.isSelected()));
         butCourseEdit.setOnAction(e -> {
+            if (checkInstructor.isSelected()) {
+                setCourseInstructor();
+            }
             if (togAddStudent.isSelected()) {
                 addStudentToCourse();
+                insertEnrollment();
                 resetEditCourseForm();
             }
             if (togRemoveStudent.isSelected()) {
                 removeStudentFromCourse();
+                removeEnrollment();
                 resetEditCourseForm();
             }
             if (printRoster.isSelected()) {
-                //add roster stuff
+                printCourseData();
+                resetEditCourseForm();
             }
         });
 
@@ -311,7 +332,7 @@ public class SMSApp_v4 extends Application {
         String major = txtStudentMajor.getText();
         String email = checkEmail(txtStudentEmail.getText());
         double GPA = Double.parseDouble(txtStudentGPA.getText());
-        int year = checkYear(combStudentYear.getValue());
+        int year = checkYear(String.valueOf(combStudentYear.getValue()));
         studentArray.add(new Student(name, year, major, GPA, email));
     }
 
@@ -338,23 +359,17 @@ public class SMSApp_v4 extends Application {
         return email;
     }
 
-    public int checkYear(Object value) {
-        String year = String.valueOf(value);
-        year = year.substring(0, 2);
+    public int checkYear(String year) {
         int grade = 0;
-        switch (year) {
-            case "fr":
-                grade = 1;
-                break;
-            case "so":
-                grade = 2;
-                break;
-            case "ju":
-                grade = 3;
-                break;
-            case "se":
-                grade = 4;
-                break;
+        year = year.toLowerCase();
+        if ("freshman".equals(year)) {
+            grade = 1;
+        } else if ("sophomore".equals(year)) {
+            grade = 2;
+        } else if ("junior".equals(year)) {
+            grade = 3;
+        } else if ("senior".equals(year)) {
+            grade = 4;
         }
         return grade;
     }
@@ -402,7 +417,7 @@ public class SMSApp_v4 extends Application {
     public void insertStudent(Student newStudent) // Insert student info into DB (Tanner & Cody)
     {
         String sqlQuery = "INSERT INTO " + dataBaseUser + "." + studentTable +
-                " (STUDENTID,STUDENTFIRSTNAME,STUDENTLASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL)"
+                " (STUDENTID,STUFIRSTNAME,STULASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL)"
                 + " VALUES (";
         sqlQuery += newStudent.getStudentID() + ",";
         sqlQuery += "'" + newStudent.getFirstName() + "',";
@@ -412,14 +427,13 @@ public class SMSApp_v4 extends Application {
         sqlQuery += newStudent.getGPA() + ",";
         sqlQuery += "'" + newStudent.getStudentEmail() + "')";
 
-        //System.out.println(sqlQuery);
+        System.out.println(sqlQuery);
         sendDBCommand(sqlQuery);
     }
-    
-    public void insertInstructor(Instructor newInstructor)
-    {
+
+    public void insertInstructor(Instructor newInstructor) {
         String sqlQuery = "INSERT INTO " + dataBaseUser + "." + instructorTable +
-                " (INSTRUCTORID, INSTRUCTORNAME, INSTRUCTORPREFIX, INSTRUCTOROFFICE, INSTRUCTORDEPARTMENT, INSTRUCTOREMAIL)"
+                " (INSTRID, INSTRNAME, INSTRPREFIX, INSTROFFICE, INSTRDEPT, INSTREMAIL)"
                 + " VALUES (";
         sqlQuery += newInstructor.getInstructorID() + ",";
         sqlQuery += "'" + newInstructor.getName() + "',";
@@ -431,37 +445,33 @@ public class SMSApp_v4 extends Application {
         sendDBCommand(sqlQuery);
     }
 
-    public void showStudent() // NEEDS INFORMATION IN DATABASE TO REFERENCE.
-    {
-        String sqlQuery = "SELECT * FROM " + dataBaseUser + "." + studentTable; //This query can be build from text box outputs
+    public void insertCourse(Course newCourse) {
+        String sqlQuery = "INSERT INTO " + dataBaseUser + "." + courseTable +
+                " (COURSEID, COURSENAME, COURSEBLDG, COURSEROOM, COURSECAPACITY, COURSEINSTRUCTOR)"
+                + " VALUES (";
+        sqlQuery += newCourse.getCourseID() + ",";
+        sqlQuery += "'" + newCourse.getCourseName() + "',";
+        sqlQuery += "'" + newCourse.getBuilding() + "',";
+        sqlQuery += "'" + newCourse.getRoomNbr() + "',";
+        sqlQuery += newCourse.getCourseCapacity() + ",";
+        sqlQuery += "null)";
         sendDBCommand(sqlQuery);
+    }
 
-        String outputString = "";
-        try {
-            // While there is more rows of results from the SELECT
-            // query, loop on each row (.next() moves to the next
-            // row each time its called)
-            while (dbResults.next())
-            {
-                // Clear out the TextArea's previous contents
-                outputBox.clear();
-                // Traverse the current row of the ResultSet object
-                // and extract each column, appending to our String
-                outputString += dbResults.getString(1) + "\t" //get contents from the first row of the result set object. First column is 1
-                        + dbResults.getString(2) + "\t" 
-                        + dbResults.getString(3) + "\t" 
-                        + dbResults.getString(4) + "\t" 
-                        + dbResults.getString(5) + "\t" 
-                        + dbResults.getString(6) + "\t"
-                        + dbResults.getString(7) + "\n";
+    public void insertEnrollment() {
+        String sqlQuery = "INSERT INTO " + dataBaseUser + "." + studentEnrollmentTable +
+                " (COURSEID, STUDENTID)" + " VALUES (";
+        sqlQuery += courseIDToEdit() + ",";
+        sqlQuery += studentIDToEdit() + ")";
+        sendDBCommand(sqlQuery);
+    }
 
-                // Append the outputString to the TextArea's contents.
-                outputBox.appendText(outputString);
-            }
-        } catch (SQLException sqle) {
-            outputBox.setText(sqle.toString());
-        }
-    }//End of showStudent()
+    public void removeEnrollment() {
+        String sqlQuery = "Delete " + dataBaseUser + "." + studentEnrollmentTable + " where ";
+        sqlQuery += " COURSEID = " + courseIDToEdit();
+        sqlQuery += " AND STUDENTID = " + studentIDToEdit();
+        sendDBCommand(sqlQuery);
+    }
 
     public void addStudentToCourse() {
         int studentID = studentIDToEdit();
@@ -474,6 +484,13 @@ public class SMSApp_v4 extends Application {
         int studentID = studentIDToEdit();
         int courseID = courseIDToEdit();
         courseArray.get(courseID).removeStudent(studentID);
+    }
+
+    public void printCourseData() {
+        int courseID = courseIDToEdit();
+        outputBox.clear();
+        outputBox.setText(courseArray.get(courseID).toString() + "\n");
+        outputBox.appendText(courseArray.get(courseID).getRoster());
     }
 
     public int studentIDToEdit() {
@@ -503,7 +520,12 @@ public class SMSApp_v4 extends Application {
     public void setCourseInstructor() {
         int courseID = courseIDToEdit();
         int instructorID = instructorToUse();
+        instructorID -= 100000;
         courseArray.get(courseID).setCourseInstructor(instructorArray.get(instructorID));
+        instructorID += 100000;
+        String sqlQuery = "UPDATE " + dataBaseUser + "." + courseTable + " SET COURSEINSTRUCTOR = ";
+        sqlQuery += instructorID + " where COURSEID = " + courseID;
+        sendDBCommand(sqlQuery);
     }
 
     public int instructorToUse() {
@@ -512,7 +534,6 @@ public class SMSApp_v4 extends Application {
         for (int i = 0; i < instructorArray.size(); i++) {
             if (instructorArray.get(i).instructorNameFormat().equals(instructorName)) {
                 instructorID = instructorArray.get(i).getInstructorID();
-                instructorID -= 100000;
                 break;
             }
         }
@@ -529,56 +550,93 @@ public class SMSApp_v4 extends Application {
     }
 
     public void updateCourseFromDatabase() throws SQLException {
-        String sqlQuery = "Select count(COURSEID) from " + dataBaseUser + "." + courseTable;
+        String sqlQuery = "Select count(COURSEID) as \"AMT\" from " + dataBaseUser + "." + courseTable;
         sendDBCommand(sqlQuery);
-        int courseCount = 0;
+        dbResults.next();
+        int courseCount = dbResults.getInt("AMT");
         String name;
         String building;
         String room;
         int roomCap;
-        courseCount = dbResults.getInt(1);
+        String empty;
+        int instructor = 0;
         for (int i = 0; i < courseCount; i++) {
             sqlQuery = "SELECT * from " + dataBaseUser + "." + courseTable + " where COURSEID = " + i;
             sendDBCommand(sqlQuery);
+            dbResults.next();
             name = dbResults.getString(2);
             building = dbResults.getString(3);
             room = dbResults.getString(4);
             roomCap = dbResults.getInt(5);
+            empty = dbResults.getString(6);
             courseArray.add(new Course(name, building, room, roomCap));
+            if (empty != null) {
+                instructor = dbResults.getInt(6) - 100000;
+                courseArray.get(i).setCourseInstructor(instructorArray.get(instructor));
+            }
         }
     }
 
     public void updateStudentFromDatabase() throws SQLException {
         String sqlQuery = "Select count(STUDENTID) from " + dataBaseUser + "." + studentTable;
         sendDBCommand(sqlQuery);
-        int studentCount = 0;
+        dbResults.next();
+        int studentCount = dbResults.getInt(1);
         String name;
         int year;
         String major;
         double GPA;
         String email;
-        studentCount = dbResults.getInt(1);
         for (int i = 0; i < studentCount; i++) {
             sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable + " where STUDENTID = " + (i + 1000);
             sendDBCommand(sqlQuery);
-            //add data fields
+            dbResults.next();
+            name = dbResults.getString(2) + " " + dbResults.getString(3);
+            year = checkYear(dbResults.getString(4));
+            major = dbResults.getString(5);
+            GPA = dbResults.getDouble(6);
+            email = dbResults.getString(7);
+            studentArray.add(new Student(name, year, major, GPA, email));
         }
     }
 
     public void updateInstructorFromDatabase() throws SQLException {
         String sqlQuery = "Select count(INSTRID) from " + dataBaseUser + "." + instructorTable;
         sendDBCommand(sqlQuery);
-        int instructorCount = 0;
+        dbResults.next();
+        int instructorCount = dbResults.getInt(1);
         String name;
         String prefix;
         String office;
         String depart;
         String email;
-        instructorCount = dbResults.getInt(1);
         for (int i = 0; i < instructorCount; i++) {
-            sqlQuery = "SELECT * from " + dataBaseUser + "." + courseTable + " where INSTRID = " + (i + 100000);
+            sqlQuery = "SELECT * from " + dataBaseUser + "." + instructorTable + " where INSTRID = " + (i + 100000);
             sendDBCommand(sqlQuery);
+            dbResults.next();
+            name = dbResults.getString(2);
+            prefix = dbResults.getString(3);
+            office = dbResults.getString(4);
+            depart = dbResults.getString(5);
+            email = dbResults.getString(6);
+            instructorArray.add(new Instructor(name, prefix, office, depart, email));
+        }
+    }
 
+    public void updateEnrollmentFromDatabase() throws SQLException {
+        String sqlQuery = "SELECT DISTINCT COUNT(COURSEID) FROM " + dataBaseUser + "." + studentEnrollmentTable;
+        sendDBCommand(sqlQuery);
+        dbResults.next();
+        int courseCount = dbResults.getInt(1);
+        int student;
+        for (int i = 0; i < courseCount; i++) {
+            sqlQuery = "SELECT * FROM " + dataBaseUser + "." + studentEnrollmentTable +
+                    " WHERE COURSEID = " + i;
+            sendDBCommand(sqlQuery);
+            while (dbResults.next()) {
+                student = dbResults.getInt(2) - 1000;
+                courseArray.get(i).addStudent(studentArray.get(student));
+            }
         }
     }
 }//End of SMSAPP_v4()

@@ -21,8 +21,8 @@ public class Student {
     public Student(String name, int year, String major, double GPA, String email) {
         //fill constructor with member methods and increment student id
         int space = splitName(name);
-        setFirstName(name.substring(0,space));
-        setLastName(name.substring(space));
+        setFirstName(name.substring(0, space));
+        setLastName(name.substring(space + 1));
         setStudentYear(year);
         setStudentMajor(major);
         setGPA(GPA);

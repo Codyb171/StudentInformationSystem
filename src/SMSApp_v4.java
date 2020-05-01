@@ -623,7 +623,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public void updateEnrollmentFromDatabase() throws SQLException {
-        String sqlQuery = "SELECT DISTINCT COUNT(COURSEID) FROM " + dataBaseUser + "." + studentEnrollmentTable;
+        String sqlQuery = "SELECT COUNT(COURSEID) FROM " + dataBaseUser + "." + studentEnrollmentTable;
         sendDBCommand(sqlQuery);
         dbResults.next();
         int courseCount = dbResults.getInt(1);
@@ -637,5 +637,6 @@ public class SMSApp_v4 extends Application {
                 courseArray.get(i).addStudent(studentArray.get(student));
             }
         }
+
     }
 }//End of SMSAPP_v4()

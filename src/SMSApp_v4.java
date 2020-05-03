@@ -22,7 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Optional;
 
 
 @SuppressWarnings("ALL")
@@ -263,41 +262,53 @@ public class SMSApp_v4 extends Application {
         checkInstructor.setOnAction(e -> {
             combInstructorList.setDisable(!checkInstructor.isSelected());
         });
-        rdoAddCourse.setOnAction(e -> {
-            createCourse();
-            clearCourseForm();
-            insertCourse(courseArray.get(courseSpot));
-            courseList.add(courseSpot, courseArray.get(courseSpot).getCourseName());
-            courseSpot++;
+        rdoAddCourse.setOnAction(e ->
+        {
+            if (checkCourseBoxes() == 0) {
+                createCourse();
+                clearCourseForm();
+                insertCourse(courseArray.get(courseSpot));
+                courseList.add(courseSpot, courseArray.get(courseSpot).getCourseName());
+                courseSpot++;
+            }
         });
         rdoAddStudent.setOnAction(e -> {
-            createStudent();
-            clearStudentForm();
-            insertStudent(studentArray.get(studentSpot));
-            studentList.add(studentSpot, studentArray.get(studentSpot).getFormatName());
-            studentSpot++;
+            if (checkStudentBoxes() == 0) {
+                createStudent();
+                clearStudentForm();
+                insertStudent(studentArray.get(studentSpot));
+                studentList.add(studentSpot, studentArray.get(studentSpot).getFormatName());
+                studentSpot++;
+            }
         });
         rdoAddInstructor.setOnAction(e -> {
-            createInstructor();
-            clearInstructorForm();
-            insertInstructor(instructorArray.get(instructorSpot));
-            instructorList.add(instructorSpot, instructorArray.get(instructorSpot).instructorNameFormat());
-            instructorSpot++;
+            if (checkInstructorBoxes() == 0) {
+                createInstructor();
+                clearInstructorForm();
+                insertInstructor(instructorArray.get(instructorSpot));
+                instructorList.add(instructorSpot, instructorArray.get(instructorSpot).instructorNameFormat());
+                instructorSpot++;
+            }
+
         });
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
                 -> combStudentList.setDisable(printRoster.isSelected()));
         butCourseEdit.setOnAction(e -> {
             if (checkInstructor.isSelected()) {
                 setCourseInstructor();
+                printCourseData();
+                resetEditCourseForm();
             }
             if (togAddStudent.isSelected()) {
                 addStudentToCourse();
                 insertEnrollment();
+                printCourseData();
                 resetEditCourseForm();
             }
             if (togRemoveStudent.isSelected()) {
                 removeStudentFromCourse();
                 removeEnrollment();
+                printCourseData();
                 resetEditCourseForm();
             }
             if (printRoster.isSelected()) {
@@ -329,33 +340,185 @@ public class SMSApp_v4 extends Application {
     public void createStudent() {
         String name = txtStudentName.getText();
         String major = txtStudentMajor.getText();
-        String email = checkEmail(txtStudentEmail.getText());
+        String email = txtStudentEmail.getText();
         double GPA = Double.parseDouble(txtStudentGPA.getText());
         int year = checkYear(String.valueOf(combStudentYear.getValue()));
         studentArray.add(new Student(name, year, major, GPA, email));
     }
 
-    public String checkEmail(String email) {
-        TextInputDialog alert = new TextInputDialog();
-        alert.setTitle("ERROR!");
-        alert.setHeaderText("Invalid Email Address found!");
-        alert.setContentText("Please reenter the email and make sure to include an \"@\" symbol!");
-        int test = 0;
-        while (test == 0) {
-            for (int i = 0; i < email.length(); i++) {
-                if (email.startsWith("@", i)) {
-                    test = 1;
-                    break;
-                }
+    public int checkStudentBoxes() {
+        int error = 0;
+        String where = "";
+        double GPA = 0;
+        if (!txtStudentGPA.getText().equals("")) {
+            GPA = Double.parseDouble(txtStudentGPA.getText());
+        }
+        if (txtStudentName.getText().equals("")) {
+            where = "Student Name";
+            error = 1;
+        }
+        if (combStudentYear.getValue() == null) {
+            if (where.equals("")) {
+                where = "Student Year";
+            } else {
+                where += ", Student Year";
             }
-            if (test == 0) {
-                Optional<String> result = alert.showAndWait();
-                if (result.isPresent()) {
-                    email = result.get();
-                }
+            error = 1;
+        }
+        if (txtStudentMajor.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Student Major";
+            } else {
+                where += ", Student Major";
+            }
+            error = 1;
+        }
+        if (txtStudentGPA.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Student GPA";
+            } else {
+                where += ", Student GPA";
+            }
+            error = 1;
+        }
+        if (GPA < 0.0 || GPA > 5.0) {
+            if (where.equals("")) {
+                where = "Invalid GPA";
+            } else {
+                where += ", Invalid GPA";
+            }
+            error = 1;
+        }
+        if (txtStudentEmail.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Student email";
+            } else {
+                where += ", Student Email";
+            }
+            error = 1;
+        }
+        if (checkEmail(txtStudentEmail.getText()) == 0) {
+            if (where.equals("")) {
+                where = "Bad Email";
+            } else {
+                where += " and Bad Email";
+            }
+            error = 1;
+
+        }
+        if (error == 1) {
+            outputBox.clear();
+            outputBox.setText("Error Found!\n");
+            outputBox.appendText("Error at " + where);
+        }
+        return error;
+    }
+
+    public int checkInstructorBoxes() {
+        int error = 0;
+        String where = "";
+        if (txtInstructorName.getText().equals("")) {
+            where = "Instructor Name";
+            error = 1;
+        }
+        if (combInstructorPrefix.getValue() == null) {
+            if (where.equals("")) {
+                where = "Instructor Prefix";
+            } else {
+                where += ", Instructor Prefix";
+            }
+            error = 1;
+        }
+        if (txtInstructorOffice.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Instructor Office";
+            } else {
+                where += ", Instructor Office";
+            }
+            error = 1;
+        }
+        if (txtInstructorDepartment.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Instructor Department";
+            } else {
+                where += ", Instructor Department";
+            }
+            error = 1;
+        }
+        if (txtInstructorEmail.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Instructor email";
+            } else {
+                where += ", Instructor Email";
+            }
+            error = 1;
+        }
+        if (checkEmail(txtInstructorEmail.getText()) == 0) {
+            if (where.equals("")) {
+                where = "Bad Email";
+            } else {
+                where += "and Bad Email";
+            }
+            error = 1;
+
+        }
+        if (error == 1) {
+            outputBox.clear();
+            outputBox.setText("Error Found!\n");
+            outputBox.appendText("Errors at these locations: " + where);
+        }
+        return error;
+
+    }
+
+    public int checkCourseBoxes() {
+        int error = 0;
+        String where = "";
+        if (txtCourseName.getText().equals("")) {
+            where = "Course Name";
+            error = 1;
+        }
+        if (combCourseBuilding.getValue() == null) {
+            if (where.equals("")) {
+                where = "Course Building";
+            } else {
+                where += ", Course Building";
+            }
+            error = 1;
+        }
+        if (txtCourseRoom.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Course Room";
+            } else {
+                where += ", Course Room";
+            }
+            error = 1;
+        }
+        if (txtCourseCapacity.getText().equals("")) {
+            if (where.equals("")) {
+                where = "Course Capacity";
+            } else {
+                where += "And Course Capacity";
+            }
+            error = 1;
+        }
+        if (error == 1) {
+            outputBox.clear();
+            outputBox.setText("Error Found!\n");
+            outputBox.appendText("Error at " + where);
+        }
+        return error;
+    }
+
+    public int checkEmail(String email) {
+        int test = 0;
+        for (int i = 0; i < email.length(); i++) {
+            if (email.startsWith("@", i)) {
+                test = 1;
+                break;
             }
         }
-        return email;
+        return test;
     }
 
     public int checkYear(String year) {
@@ -401,7 +564,7 @@ public class SMSApp_v4 extends Application {
         String prefix = String.valueOf(combInstructorPrefix.getValue());
         String office = txtInstructorOffice.getText();
         String depart = txtInstructorDepartment.getText();
-        String email = checkEmail(txtInstructorEmail.getText());
+        String email = txtInstructorEmail.getText();
         instructorArray.add(new Instructor(name, prefix, office, depart, email));
     }
 

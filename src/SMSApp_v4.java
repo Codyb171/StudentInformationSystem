@@ -1,4 +1,4 @@
- // Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
+// Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
 // Dr. Ezell | CIS 331
 // Purpose: Main Method for the Application
 //  Link to JMU OneDrive: https://dukesjmuedu-my.sharepoint.com/:f:/g/personal/elpheeti_dukes_jmu_edu/Er7HS_yJyotJnm-GCDn661sBVS7mJo0PJ3uKvEESinPfwA?e=t1WDck
@@ -122,6 +122,8 @@ public class SMSApp_v4 extends Application {
     String courseTable = "COURSE"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
     String studentEnrollmentTable = "STUDENTENROLLMENT"; // MAKE SURE THIS IS THE TABLE YOUR ARE STORING IN
 
+    // start method - setting and formatting the UI
+    //      (Scott, Cody, Harry)
     @Override
     public void start(Stage primaryStage) {
         // first we assign the Add and remove student buttons into a group to ensure they work properly
@@ -292,11 +294,14 @@ public class SMSApp_v4 extends Application {
 
         });
         //Disable Choose a course drop-down if print roster is selected (Tanner)
+        //Disable when add student is selected - Scott
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
                 -> combStudentList.setDisable(printRoster.isSelected()));
         //Disable New Instructor checkbox if print roster is selected (Tanner)
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
                 -> checkInstructor.setDisable(printRoster.isSelected()));
+        addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
+                -> checkInstructor.setDisable(togAddStudent.isSelected()));
         
         butCourseEdit.setOnAction(e -> {
                 if (checkInstructor.isSelected()) {

@@ -298,14 +298,6 @@ public class SMSApp_v4 extends Application {
                 -> combStudentList.setDisable(printRoster.isSelected()));
 
         butCourseEdit.setOnAction(e -> {
-                if (checkInstructor.isSelected()) {
-                    if (checkEditBoxes(0) == 0) {
-
-                        setCourseInstructor();
-                        printCourseData();
-                        resetEditCourseForm();
-                    }
-                }
                 if (togAddStudent.isSelected()) {
                     if (checkEditBoxes(1) == 0) {
                         int send = addStudentToCourse();
@@ -313,20 +305,39 @@ public class SMSApp_v4 extends Application {
                             insertEnrollment();
 
                         }
-                        printCourseData();
-                        resetEditCourseForm();
                     }
+                    if (checkInstructor.isSelected()) {
+                        if (checkEditBoxes(0) == 0) {
+
+                            setCourseInstructor();
+                        }
+                    }
+                    printCourseData();
+                    resetEditCourseForm();
                 }
                 if (togRemoveStudent.isSelected()) {
                     if (checkEditBoxes(2) == 0) {
                         removeStudentFromCourse();
                         removeEnrollment();
-                        printCourseData();
-                        resetEditCourseForm();
+
                     }
+                    if (checkInstructor.isSelected()) {
+                        if (checkEditBoxes(0) == 0) {
+
+                            setCourseInstructor();
+                        }
+                    }
+                    printCourseData();
+                    resetEditCourseForm();
                 }
                 if (printRoster.isSelected()) {
                     if (checkEditBoxes(3) == 0) {
+                        if (checkInstructor.isSelected()) {
+                            if (checkEditBoxes(0) == 0) {
+
+                                setCourseInstructor();
+                            }
+                        }
                         printCourseData();
                         resetEditCourseForm();
                     }
@@ -817,7 +828,7 @@ public class SMSApp_v4 extends Application {
         double GPA;
         String email;
         int ID;
-        String sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable;
+        String sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable + " order by STUDENTID";
         sendDBCommand(sqlQuery);
         while (dbResults.next()) {
             ID = dbResults.getInt(1);

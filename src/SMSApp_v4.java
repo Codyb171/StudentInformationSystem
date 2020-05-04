@@ -296,30 +296,51 @@ public class SMSApp_v4 extends Application {
                 -> combStudentList.setDisable(printRoster.isSelected()));
 
         butCourseEdit.setOnAction(e -> {
-                if (checkInstructor.isSelected()) {
-                    if (checkEditBoxes(0) == 0)
-                        setCourseInstructor();
-                    printCourseData();
-                    resetEditCourseForm();
-                }
                 if (togAddStudent.isSelected()) {
-                    int send = addStudentToCourse();
-                    if (send == 1) {
-                        insertEnrollment();
+                    if (checkEditBoxes(1) == 0) {
+                        int send = addStudentToCourse();
+                        if (send == 0) {
+                            insertEnrollment();
+
+                        }
+                    }
+                    if (checkInstructor.isSelected()) {
+                        if (checkEditBoxes(0) == 0) {
+
+                            setCourseInstructor();
+                        }
                     }
                     printCourseData();
                     resetEditCourseForm();
                 }
                 if (togRemoveStudent.isSelected()) {
-                    removeStudentFromCourse();
-                    removeEnrollment();
+                    if (checkEditBoxes(2) == 0) {
+                        removeStudentFromCourse();
+                        removeEnrollment();
+
+                    }
+                    if (checkInstructor.isSelected()) {
+                        if (checkEditBoxes(0) == 0) {
+
+                            setCourseInstructor();
+                        }
+                    }
                     printCourseData();
                     resetEditCourseForm();
                 }
                 if (printRoster.isSelected()) {
-                    printCourseData();
-                    resetEditCourseForm();
+                    if (checkEditBoxes(3) == 0) {
+                        if (checkInstructor.isSelected()) {
+                            if (checkEditBoxes(0) == 0) {
+
+                                setCourseInstructor();
+                            }
+                        }
+                        printCourseData();
+                        resetEditCourseForm();
+                    }
                 }
+            resetEditCourseForm();
         });
 
     }// END OF START()
@@ -346,7 +367,7 @@ public class SMSApp_v4 extends Application {
         String name = txtStudentName.getText();
         String major = txtStudentMajor.getText();
         String email = txtStudentEmail.getText();
-        double GPA = Double.parseDouble(txtStudentGPA.getText());
+        double GPA = Double.valueOf(txtStudentGPA.getText());
         int year = checkYear(String.valueOf(combStudentYear.getValue()));
         studentArray.add(new Student(name, year, major, GPA, email));
     }
@@ -354,7 +375,7 @@ public class SMSApp_v4 extends Application {
     public int checkStudentBoxes() {
         int error = 0;
         String where = "";
-        double GPA = 0;
+        double GPA = 0.0;
         if (!txtStudentGPA.getText().equals("")) {
             GPA = Double.parseDouble(txtStudentGPA.getText());
         }
@@ -528,10 +549,28 @@ public class SMSApp_v4 extends Application {
                 error = 1;
             }
         }
-        if (function == 1) {
-
+        if (function == 1 || function == 2) {
+            if (combCourseList.getValue() == null) {
+                where += " No Course Selected";
+                error = 1;
+            }
+            if (combStudentList.getValue() == null) {
+                where += " No Student Slected";
+                error = 1;
+            }
         }
-        return 1;
+        if (function == 3) {
+            if (combCourseList.getValue() == null) {
+                where += " No Course Selected";
+                error = 1;
+            }
+        }
+        if (error == 1) {
+            outputBox.clear();
+            outputBox.setText("Error Found!\n");
+            outputBox.appendText("Error at the following location(s) : " + where);
+        }
+        return error;
     }
 
     public int checkEmail(String email) {
@@ -789,7 +828,7 @@ public class SMSApp_v4 extends Application {
         double GPA;
         String email;
         int ID;
-        String sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable;
+        String sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable + " order by STUDENTID";
         sendDBCommand(sqlQuery);
         while (dbResults.next()) {
             ID = dbResults.getInt(1);

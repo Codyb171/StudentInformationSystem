@@ -727,6 +727,8 @@ public class SMSApp_v4 extends Application {
         combInstructorList.setDisable(true);
     }
 
+    // instead of using a STOP method, we've implemented a few update methods of our own
+    //      (Cody, Scott, Austin)
     public void updateCourseFromDatabase() throws SQLException {
         String sqlQuery = "Select count(COURSEID) as \"AMT\" from " + dataBaseUser + "." + courseTable;
         sendDBCommand(sqlQuery);

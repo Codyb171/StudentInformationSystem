@@ -27,8 +27,6 @@ import java.util.ArrayList;
 @SuppressWarnings("ALL")
 public class SMSApp_v4 extends Application {
 
-    //Controls for only student, course, and instructor
-    //Still need add student, course, and instructor buttons, and entire bottom half controls for UI
     //Observable List for ComboBox Options
     ObservableList<String> prefix =
             FXCollections.observableArrayList("Dr.", "Ms.", "Mrs.", "Mr.");
@@ -42,7 +40,7 @@ public class SMSApp_v4 extends Application {
             FXCollections.observableArrayList();
     ObservableList<String> instructorList =
             FXCollections.observableArrayList();
-    //Student UI Elements
+    //Student UI Elements-Harry
     TextField txtStudentName = new TextField();
     ComboBox combStudentYear = new ComboBox(year);
     TextField txtStudentMajor = new TextField();
@@ -55,7 +53,7 @@ public class SMSApp_v4 extends Application {
     Label lblStudentGPA = new Label("GPA: ");
     Label lblStudentEmail = new Label("Email: ");
     Button rdoAddStudent = new Button("Add This Student");
-    //Course UI Elements
+    //Course UI Elements-Harry
     TextField txtCourseName = new TextField();
     ComboBox combCourseBuilding = new ComboBox(buildingName);
     TextField txtCourseRoom = new TextField();
@@ -66,7 +64,7 @@ public class SMSApp_v4 extends Application {
     Label lblCourseRoom = new Label("Room: ");
     Label lblCourseCapacity = new Label("Max Capacity: ");
     Button rdoAddCourse = new Button("Add This Course");
-    //Instructor UI Elements
+    //Instructor UI Elements-Harry
     TextField txtInstructorName = new TextField();
     ComboBox combInstructorPrefix = new ComboBox(prefix);
     TextField txtInstructorOffice = new TextField();
@@ -592,8 +590,8 @@ public class SMSApp_v4 extends Application {
         txtInstructorEmail.clear();
     }
 
-    public void insertStudent(Student newStudent) // Insert student info into DB (Tanner & Cody)
-    {
+    public void insertStudent(Student newStudent) {
+        // Insert student info into DB (Tanner & Cody)
         String sqlQuery = "INSERT INTO " + dataBaseUser + "." + studentTable +
                 " (STUDENTID,STUFIRSTNAME,STULASTNAME,STUDENTYEAR,STUDENTMAJOR,STUDENTGPA,STUDENTEMAIL)"
                 + " VALUES (";
@@ -610,6 +608,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public void insertInstructor(Instructor newInstructor) {
+        //send sql command to insert a row into instructor-Harry
         String sqlQuery = "INSERT INTO " + dataBaseUser + "." + instructorTable +
                 " (INSTRID, INSTRNAME, INSTRPREFIX, INSTROFFICE, INSTRDEPT, INSTREMAIL)"
                 + " VALUES (";
@@ -624,6 +623,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public void insertCourse(Course newCourse) {
+        //send sql command to insert a row into course-Harry
         String sqlQuery = "INSERT INTO " + dataBaseUser + "." + courseTable +
                 " (COURSEID, COURSENAME, COURSEBLDG, COURSEROOM, COURSECAPACITY, COURSEINSTRUCTOR)"
                 + " VALUES (";

@@ -299,18 +299,20 @@ public class SMSApp_v4 extends Application {
 
         butCourseEdit.setOnAction(e -> {
                 if (checkInstructor.isSelected()) {
-                    if (checkEditBoxes(0) == 0)
+                    if (checkEditBoxes(0) == 0) {
+
                         setCourseInstructor();
-                    printCourseData();
-                    resetEditCourseForm();
+                        printCourseData();
+                        resetEditCourseForm();
+                    }
                 }
                 if (togAddStudent.isSelected()) {
                     int send = addStudentToCourse();
                     if (send == 1) {
                         insertEnrollment();
+                        printCourseData();
+                        resetEditCourseForm();
                     }
-                    printCourseData();
-                    resetEditCourseForm();
                 }
                 if (togRemoveStudent.isSelected()) {
                     removeStudentFromCourse();
@@ -531,9 +533,21 @@ public class SMSApp_v4 extends Application {
             }
         }
         if (function == 1) {
-
+            if (combCourseList.getValue() == null) {
+                where += " No Course Selected";
+                error = 1;
+            }
+            if (combStudentList.getValue() == null) {
+                where += " No Student Slected";
+                error = 1;
+            }
         }
-        return 1;
+        if (error == 1) {
+            outputBox.clear();
+            outputBox.setText("Error Found!\n");
+            outputBox.appendText("Error at the following location(s) : " + where);
+        }
+        return error;
     }
 
     public int checkEmail(String email) {

@@ -302,13 +302,16 @@ public class SMSApp_v4 extends Application {
         
         butCourseEdit.setOnAction(e -> {
                 if (checkInstructor.isSelected()) {
-                    setCourseInstructor();
+                    if (checkEditBoxes(0) == 0)
+                        setCourseInstructor();
                     printCourseData();
                     resetEditCourseForm();
                 }
                 if (togAddStudent.isSelected()) {
-                    addStudentToCourse();
-                    insertEnrollment();
+                    int send = addStudentToCourse();
+                    if (send == 1) {
+                        insertEnrollment();
+                    }
                     printCourseData();
                     resetEditCourseForm();
                 }
@@ -517,9 +520,22 @@ public class SMSApp_v4 extends Application {
         return error;
     }
 
-    public int checkEditBoxes() {
+    public int checkEditBoxes(int function) {
         int error = 0;
-        combInstructorList.getValue();
+        String where = "";
+        if (function == 0) {
+            if (combCourseList.getValue() == null) {
+                where += " No Course Selected";
+                error = 1;
+            }
+            if (combInstructorList.getValue() == null) {
+                where += " No Instructor Selected";
+                error = 1;
+            }
+        }
+        if (function == 1) {
+
+        }
         return 1;
     }
 
@@ -648,11 +664,26 @@ public class SMSApp_v4 extends Application {
         sendDBCommand(sqlQuery);
     }
 
-    public void addStudentToCourse() {
+    public int addStudentToCourse() {
         int studentID = studentIDToEdit();
         int courseID = courseIDToEdit();
-        studentID -= 1000;
-        courseArray.get(courseID).addStudent(studentArray.get(studentID));
+        int where = 0;
+        int add = 0;
+        for (int i = 0; i < studentArray.size(); i++) {
+            if (studentArray.get(i).getStudentID() == studentID) {
+                where = i;
+            }
+        }
+        ArrayList<Student> courseStudents = new ArrayList<>(courseArray.get(courseID).getEnrolledStudents());
+        for (int j = 0; j < courseStudents.size(); j++) {
+            if (courseStudents.get(j).getStudentID() == studentID) {
+                add = 1;
+            }
+        }
+        if (add == 0) {
+            courseArray.get(courseID).addStudent(studentArray.get(where));
+        }
+        return add;
     }
 
     public void removeStudentFromCourse() {
@@ -755,20 +786,15 @@ public class SMSApp_v4 extends Application {
     }
 
     public void updateStudentFromDatabase() throws SQLException {
-        String sqlQuery = "Select count(STUDENTID) from " + dataBaseUser + "." + studentTable;
-        sendDBCommand(sqlQuery);
-        dbResults.next();
-        int studentCount = dbResults.getInt(1);
         String name;
         int year;
         String major;
         double GPA;
         String email;
         int ID;
-        for (int i = 0; i < studentCount; i++) {
-            sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable;
-            sendDBCommand(sqlQuery);
-            dbResults.next();
+        String sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable;
+        sendDBCommand(sqlQuery);
+        while (dbResults.next()) {
             ID = dbResults.getInt(1);
             name = dbResults.getString(2) + " " + dbResults.getString(3);
             year = checkYear(dbResults.getString(4));
@@ -808,13 +834,20 @@ public class SMSApp_v4 extends Application {
         dbResults.next();
         int courseCount = dbResults.getInt(1);
         int student;
+        int location = 0;
         for (int i = 0; i < courseCount; i++) {
             sqlQuery = "SELECT * FROM " + dataBaseUser + "." + studentEnrollmentTable +
                     " WHERE COURSEID = " + i;
             sendDBCommand(sqlQuery);
             while (dbResults.next()) {
-                student = dbResults.getInt(2) - 1000;
-                courseArray.get(i).addStudent(studentArray.get(student));
+                student = dbResults.getInt(2);
+                for (int j = 0; j < studentArray.size(); j++) {
+                    if (studentArray.get(j).getStudentID() == student) {
+                        location = j;
+                    }
+                }
+
+                courseArray.get(i).addStudent(studentArray.get(location));
             }
         }
 

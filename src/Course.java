@@ -67,6 +67,10 @@ public class Course
         return courseID;
     }
 
+    public ArrayList<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
     //Member methods - adders and removers
     public void addStudent(Student newStudent) {
         enrolledStudents.add(newStudent);

@@ -31,10 +31,23 @@ public class Student {
         nextStudentID++;
     }
 
+    public Student(int ID, String name, int year, String major, double GPA, String email) {
+        int space = splitName(name);
+        setFirstName(name.substring(0, space));
+        setLastName(name.substring(space + 1));
+        setStudentYear(year);
+        setStudentMajor(major);
+        setGPA(GPA);
+        setStudentEmail(email);
+        nextStudentID = ID;
+        setStudentID(nextStudentID);
+        nextStudentID++;
+    }
+
     public int splitName(String name) {
         //added member method to split the first and last names of any entry
-        int where =0;
-        for(int i =0; i < name.length(); i++) {
+        int where = 0;
+        for (int i = 0; i < name.length(); i++) {
             if (name.startsWith(" ", i)) {
                 where = i;
             }

@@ -510,6 +510,12 @@ public class SMSApp_v4 extends Application {
         return error;
     }
 
+    public int checkEditBoxes() {
+        int error = 0;
+        combInstructorList.getValue();
+        return 1;
+    }
+
     public int checkEmail(String email) {
         int test = 0;
         for (int i = 0; i < email.length(); i++) {
@@ -749,16 +755,18 @@ public class SMSApp_v4 extends Application {
         String major;
         double GPA;
         String email;
+        int ID;
         for (int i = 0; i < studentCount; i++) {
-            sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable + " where STUDENTID = " + (i + 1000);
+            sqlQuery = "SELECT * from " + dataBaseUser + "." + studentTable;
             sendDBCommand(sqlQuery);
             dbResults.next();
+            ID = dbResults.getInt(1);
             name = dbResults.getString(2) + " " + dbResults.getString(3);
             year = checkYear(dbResults.getString(4));
             major = dbResults.getString(5);
             GPA = dbResults.getDouble(6);
             email = dbResults.getString(7);
-            studentArray.add(new Student(name, year, major, GPA, email));
+            studentArray.add(new Student(ID, name, year, major, GPA, email));
         }
     }
 

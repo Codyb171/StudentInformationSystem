@@ -369,7 +369,7 @@ public class SMSApp_v4 extends Application {
         String name = txtStudentName.getText();
         String major = txtStudentMajor.getText();
         String email = txtStudentEmail.getText();
-        double GPA = Double.parseDouble(txtStudentGPA.getText());
+        double GPA = Double.valueOf(txtStudentGPA.getText());
         int year = checkYear(String.valueOf(combStudentYear.getValue()));
         studentArray.add(new Student(name, year, major, GPA, email));
     }
@@ -377,7 +377,7 @@ public class SMSApp_v4 extends Application {
     public int checkStudentBoxes() {
         int error = 0;
         String where = "";
-        double GPA = 0;
+        double GPA = 0.0;
         if (!txtStudentGPA.getText().equals("")) {
             GPA = Double.parseDouble(txtStudentGPA.getText());
         }

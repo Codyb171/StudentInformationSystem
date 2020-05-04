@@ -307,23 +307,31 @@ public class SMSApp_v4 extends Application {
                     }
                 }
                 if (togAddStudent.isSelected()) {
-                    int send = addStudentToCourse();
-                    if (send == 1) {
-                        insertEnrollment();
+                    if (checkEditBoxes(1) == 0) {
+                        int send = addStudentToCourse();
+                        if (send == 0) {
+                            insertEnrollment();
+
+                        }
                         printCourseData();
                         resetEditCourseForm();
                     }
                 }
                 if (togRemoveStudent.isSelected()) {
-                    removeStudentFromCourse();
-                    removeEnrollment();
-                    printCourseData();
-                    resetEditCourseForm();
+                    if (checkEditBoxes(2) == 0) {
+                        removeStudentFromCourse();
+                        removeEnrollment();
+                        printCourseData();
+                        resetEditCourseForm();
+                    }
                 }
                 if (printRoster.isSelected()) {
-                    printCourseData();
-                    resetEditCourseForm();
+                    if (checkEditBoxes(3) == 0) {
+                        printCourseData();
+                        resetEditCourseForm();
+                    }
                 }
+            resetEditCourseForm();
         });
 
     }// END OF START()
@@ -532,13 +540,19 @@ public class SMSApp_v4 extends Application {
                 error = 1;
             }
         }
-        if (function == 1) {
+        if (function == 1 || function == 2) {
             if (combCourseList.getValue() == null) {
                 where += " No Course Selected";
                 error = 1;
             }
             if (combStudentList.getValue() == null) {
                 where += " No Student Slected";
+                error = 1;
+            }
+        }
+        if (function == 3) {
+            if (combCourseList.getValue() == null) {
+                where += " No Course Selected";
                 error = 1;
             }
         }

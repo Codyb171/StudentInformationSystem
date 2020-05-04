@@ -294,7 +294,6 @@ public class SMSApp_v4 extends Application {
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
                 -> combStudentList.setDisable(printRoster.isSelected()));
         butCourseEdit.setOnAction(e -> {
-            if (checkEditBoxes() == 0) {
                 if (checkInstructor.isSelected()) {
                     setCourseInstructor();
                     printCourseData();
@@ -316,7 +315,6 @@ public class SMSApp_v4 extends Application {
                     printCourseData();
                     resetEditCourseForm();
                 }
-            }
         });
 
     }// END OF START()
@@ -508,85 +506,6 @@ public class SMSApp_v4 extends Application {
             outputBox.clear();
             outputBox.setText("Error Found!\n");
             outputBox.appendText("Error at " + where);
-        }
-        return error;
-    }
-
-    public int checkEditBoxes() {
-        int error = 0;
-        String where = "";
-        if (togAddStudent.isSelected()) {
-            if (combStudentList.getValue() == null) {
-                if (where.equals("")) {
-                    where = "No Student Selected";
-                } else {
-                    where += ", No Student Selected";
-                }
-                error = 1;
-            }
-            if (combCourseList.getValue() == null) ;
-            {
-                if (where.equals("")) {
-                    where = "No Course Selected";
-                } else {
-                    where += ", No Course Selected";
-                }
-                error = 1;
-            }
-        }
-        if (togRemoveStudent.isSelected()) {
-            if (combStudentList.getValue() == null) {
-                if (where.equals("")) {
-                    where = "No Student Selected";
-                } else {
-                    where += ", No Student Selected";
-                }
-                error = 1;
-            }
-            if (combCourseList.getValue() == null) ;
-            {
-                if (where.equals("")) {
-                    where = "No Course Selected";
-                } else {
-                    where += ", No Course Selected";
-                }
-                error = 1;
-            }
-        }
-        if (checkInstructor.isSelected()) {
-            if (combCourseList.getValue() == null) ;
-            {
-                if (where.equals("")) {
-                    where = "No Course Selected";
-                } else {
-                    where += ", No Course Selected";
-                }
-                error = 1;
-            }
-            if (combInstructorList.getValue() == null) {
-                if (where.equals("")) {
-                    where = "No Instuctor Selected";
-                } else {
-                    where += ", No Instuctor Selected";
-                }
-                error = 1;
-            }
-        }
-        if (printRoster.isSelected()) {
-            if (combCourseList.getValue() == null) ;
-            {
-                if (where.equals("")) {
-                    where = "No Course Selected";
-                } else {
-                    where += ", No Course Selected";
-                }
-                error = 1;
-            }
-        }
-        if (error == 1) {
-            outputBox.clear();
-            outputBox.setText("Error Found!!\n");
-            outputBox.appendText("Error found in these locations: " + where);
         }
         return error;
     }

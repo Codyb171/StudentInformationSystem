@@ -1,4 +1,4 @@
-// Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
+ // Authors: Cody Bishop, Scott Baker, Tanner Elphee, Harry Brown, and Austin Lindsey
 // Dr. Ezell | CIS 331
 // Purpose: Main Method for the Application
 //  Link to JMU OneDrive: https://dukesjmuedu-my.sharepoint.com/:f:/g/personal/elpheeti_dukes_jmu_edu/Er7HS_yJyotJnm-GCDn661sBVS7mJo0PJ3uKvEESinPfwA?e=t1WDck
@@ -291,8 +291,13 @@ public class SMSApp_v4 extends Application {
             }
 
         });
+        //Disable Choose a course drop-down if print roster is selected (Tanner)
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
                 -> combStudentList.setDisable(printRoster.isSelected()));
+        //Disable New Instructor checkbox if print roster is selected (Tanner)
+        addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
+                -> checkInstructor.setDisable(printRoster.isSelected()));
+        
         butCourseEdit.setOnAction(e -> {
                 if (checkInstructor.isSelected()) {
                     setCourseInstructor();

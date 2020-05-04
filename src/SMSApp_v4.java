@@ -293,13 +293,10 @@ public class SMSApp_v4 extends Application {
             }
 
         });
-        //Disable Choose a course drop-down if print roster is selected (Tanner)
+        //Disable Choose a course drop-down if print roster is selected (Tanner and Scott)
         addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
                 -> combStudentList.setDisable(printRoster.isSelected()));
-        //Disable New Instructor checkbox if Print Roster is selected or Remove Student is selected (Scott)
-        addOrRemove.selectedToggleProperty().addListener((observableValue, toggle, t1)
-                -> checkInstructor.setDisable(printRoster.isSelected() || togAddStudent.isSelected()));
-        
+
         butCourseEdit.setOnAction(e -> {
                 if (checkInstructor.isSelected()) {
                     if (checkEditBoxes(0) == 0)

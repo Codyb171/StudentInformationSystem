@@ -370,6 +370,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public int checkStudentBoxes() {
+        //complete error checking for student
         int error = 0;
         String where = "";
         double GPA = 0.0;
@@ -438,6 +439,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public int checkInstructorBoxes() {
+        //completete error checking for instructor
         int error = 0;
         String where = "";
         if (txtInstructorName.getText().equals("")) {
@@ -495,6 +497,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public int checkCourseBoxes() {
+        //complete error checking for course
         int error = 0;
         String where = "";
         if (txtCourseName.getText().equals("")) {

@@ -37,6 +37,7 @@ public class SMSApp_v4 extends Application {
             FXCollections.observableArrayList();
     ObservableList<String> instructorList =
             FXCollections.observableArrayList();
+
     //Student UI Elements-Harry
     TextField txtStudentName = new TextField();
     ComboBox combStudentYear = new ComboBox(year);
@@ -50,6 +51,7 @@ public class SMSApp_v4 extends Application {
     Label lblStudentGPA = new Label("GPA: ");
     Label lblStudentEmail = new Label("Email: ");
     Button rdoAddStudent = new Button("Add This Student");
+
     //Course UI Elements-Harry
     TextField txtCourseName = new TextField();
     ComboBox combCourseBuilding = new ComboBox(buildingName);
@@ -61,6 +63,7 @@ public class SMSApp_v4 extends Application {
     Label lblCourseRoom = new Label("Room: ");
     Label lblCourseCapacity = new Label("Max Capacity: ");
     Button rdoAddCourse = new Button("Add This Course");
+
     //Instructor UI Elements-Harry
     TextField txtInstructorName = new TextField();
     ComboBox combInstructorPrefix = new ComboBox(prefix);
@@ -95,17 +98,19 @@ public class SMSApp_v4 extends Application {
 
     // Access course Roster
     RadioButton printRoster = new RadioButton("Print Roster");
+
     // Our Database Connection method needs these objects.
     // We declare them here and point them to instance objects below.
-    public static ArrayList<Student> studentArray = new ArrayList<>();
-    public static ArrayList<Course> courseArray = new ArrayList<>();
-    public static ArrayList<Instructor> instructorArray = new ArrayList<>();
     public Connection dbConn;
     public Statement commStmt;
     public ResultSet dbResults;
     public String URL = "jdbc:oracle:thin:@localhost:1521:XE";
     public OracleDataSource ds;
 
+    //ArrayLists for all class objects
+    public static ArrayList<Student> studentArray = new ArrayList<>();
+    public static ArrayList<Course> courseArray = new ArrayList<>();
+    public static ArrayList<Instructor> instructorArray = new ArrayList<>();
 
     //Declaring MASTER Database User, Password (Tanner)
     String dataBaseUser = "shenu"; //THESE ARE CASE SENSITIVE!!!!
@@ -121,10 +126,13 @@ public class SMSApp_v4 extends Application {
     //      (Scott, Cody, Harry)
     @Override
     public void start(Stage primaryStage) {
+
         // first we assign the Add and remove student buttons into a group to ensure they work properly
         togAddStudent.setToggleGroup(addOrRemove);
         togRemoveStudent.setToggleGroup(addOrRemove);
         printRoster.setToggleGroup(addOrRemove);
+
+
         //Create Panes for control layout
         GridPane addStudentPane = new GridPane();
         GridPane addCoursePane = new GridPane();
@@ -196,11 +204,11 @@ public class SMSApp_v4 extends Application {
         editCoursePane.add(combInstructorList, 1, 6);
         combInstructorList.setDisable(true);
         editCoursePane.add(butCourseEdit, 1, 7);
+
         //Edit the outputPane
         outputPane.setAlignment(Pos.CENTER);
         outputBox.setMaxWidth(500);
         outputPane.add(outputBox, 0, 0);
-        //add my course roster stuff
 
         //set the overallPane
         overallPane.setAlignment(Pos.CENTER);
@@ -211,7 +219,7 @@ public class SMSApp_v4 extends Application {
         overallPane.add(editCoursePane, 0, 2);
         overallPane.add(outputPane, 1, 2);
 
-
+        //Methods for recieving data from the DataBase
         try {
             updateStudentFromDatabase();
         } catch (SQLException throwables) {
@@ -250,6 +258,8 @@ public class SMSApp_v4 extends Application {
                 instructorSpot++;
             }
         }
+        //end of DataBase Read in
+
         Scene primaryScene = new Scene(overallPane, 1100, 500);
         primaryStage.setTitle("System Management System v4.0");
         primaryStage.setScene(primaryScene);

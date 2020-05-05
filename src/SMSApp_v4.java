@@ -256,7 +256,7 @@ public class SMSApp_v4 extends Application {
             }
         }
         Scene primaryScene = new Scene(overallPane, 1100, 500);
-        primaryStage.setTitle("System Management System v0.4");
+        primaryStage.setTitle("System Management System v4.0");
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 

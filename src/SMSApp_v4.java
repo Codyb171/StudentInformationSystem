@@ -303,7 +303,6 @@ public class SMSApp_v4 extends Application {
                         int send = addStudentToCourse();
                         if (send == 0) {
                             insertEnrollment();
-
                         }
                     }
                     if (checkInstructor.isSelected()) {

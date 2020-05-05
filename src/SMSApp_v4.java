@@ -360,6 +360,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public void createStudent() {
+        //add the values of course to the array list
         String name = txtStudentName.getText();
         String major = txtStudentMajor.getText();
         String email = txtStudentEmail.getText();
@@ -570,6 +571,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public int checkEmail(String email) {
+        //check that email does not start with an @
         int test = 0;
         for (int i = 0; i < email.length(); i++) {
             if (email.startsWith("@", i)) {
@@ -581,6 +583,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public int checkYear(String year) {
+        //get the integer value for the year of the student from the string value
         int grade = 0;
         year = year.toLowerCase();
         if ("freshman".equals(year)) {
@@ -604,6 +607,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public void createCourse() {
+        //add values of course to its array list
         String courseName = txtCourseName.getText();
         String building = String.valueOf(combCourseBuilding.getValue());
         String roomNumber = txtCourseRoom.getText();
@@ -619,6 +623,7 @@ public class SMSApp_v4 extends Application {
     }
 
     public void createInstructor() {
+        //add the values of instructor to its array list
         String name = txtInstructorName.getText();
         String prefix = String.valueOf(combInstructorPrefix.getValue());
         String office = txtInstructorOffice.getText();

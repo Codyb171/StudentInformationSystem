@@ -2,10 +2,7 @@
 // Dr. Ezell | CIS 331
 // Purpose: Main Method for the Application
 //  Link to JMU OneDrive: https://dukesjmuedu-my.sharepoint.com/:f:/g/personal/elpheeti_dukes_jmu_edu/Er7HS_yJyotJnm-GCDn661sBVS7mJo0PJ3uKvEESinPfwA?e=t1WDck
-//Please connect to database SHENU to work with this application. See OneDrive for details.
-//Please make sure you get the new ddl for the database and drop all your old tables
 
-// Use MenuOrder example as reference
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
